@@ -5,47 +5,12 @@ body {
   font-size: 14px;
 }
 
-.my {
-  margin: 0.5rem 0;
-}
-.my-1 {
-  margin: 1rem 0;
-}
-.my-2 {
-  margin: 1.5rem 0;
+a {
+  text-decoration: none;
 }
 
-.mx {
-  margin: 0 0.5rem;
-}
-.mx-1 {
-  margin: 0 1rem;
-}
-.mx-2 {
-  margin: 0 1.5rem;
-}
-
-.mb {
-  margin-bottom: 0.5rem;
-}
-.mb-1 {
-  margin-bottom: 1rem;
-}
-.mb-2 {
-  margin-bottom: 1.5rem;
-}
-.mt {
-  margin-top: 0.5rem;
-}
-.mt-1 {
-  margin-top: 1rem;
-}
-.mt-2 {
-  margin-top: 1.5rem;
-}
-
-.w-100 {
-  width: 100%;
+h1 {
+  font-size: 2em;
 }
 
 h1,
@@ -55,6 +20,49 @@ h4,
 h5,
 h6 {
   margin: 0.5em 0;
+}
+
+.my {
+  margin: 0.5em 0;
+}
+.my-1 {
+  margin: 1em 0;
+}
+.my-2 {
+  margin: 1.5em 0;
+}
+
+.mx {
+  margin: 0 0.5em;
+}
+.mx-1 {
+  margin: 0 1em;
+}
+.mx-2 {
+  margin: 0 1.5em;
+}
+
+.mb {
+  margin-bottom: 0.5em;
+}
+.mb-1 {
+  margin-bottom: 1em;
+}
+.mb-2 {
+  margin-bottom: 1.5em;
+}
+.mt {
+  margin-top: 0.5em;
+}
+.mt-1 {
+  margin-top: 1em;
+}
+.mt-2 {
+  margin-top: 1.5em;
+}
+
+.w-100 {
+  width: 100%;
 }
 
 .text-secondary {
