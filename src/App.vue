@@ -1,18 +1,20 @@
 <template>
   <div id="app">
     <main>
-      <SideNav v-if="isAuth" />
+      <SideNavDesktop class="d-sm-none" v-if="isAuth" />
+      <SideNavMobile class="d-lg-none" v-if="isAuth" />
       <router-view></router-view>
     </main>
   </div>
 </template>
 
 <script>
-import SideNav from "./Pages/Admin/SideNav";
+import SideNavDesktop from "@/Components/Admin/SideNavDesktop";
+import SideNavMobile from "@/Components/Admin/SideNavMobile";
 
 export default {
   name: "App",
-  components: { SideNav },
+  components: { SideNavDesktop, SideNavMobile },
   data() {
     return {
       isAuth: !!localStorage.getItem("role"),
@@ -34,5 +36,12 @@ main {
   grid-template-rows: 1fr;
   grid-gap: 10px 10px;
   min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  main {
+    display: block;
+    min-height: 100%;
+  }
 }
 </style>
