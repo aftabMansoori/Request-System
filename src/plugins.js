@@ -7,6 +7,7 @@ import ElementUI from "element-ui";
 
 import "element-ui/lib/theme-chalk/index.css";
 import "./global.css";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
