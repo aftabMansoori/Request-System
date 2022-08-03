@@ -1,7 +1,7 @@
 <template>
   <main>
     <section>
-      <div class="text-center mb-2">
+      <div class="text-center mb-4">
         <h1>Login</h1>
         <p class="text-secondary">Please enter your credentials to continue</p>
       </div>

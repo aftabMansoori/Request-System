@@ -1,9 +1,11 @@
 <template>
   <main>
     <section>
-      <div class="text-center mb-2">
+      <div class="text-center mb-4">
         <h1>Register</h1>
-        <p class="text-secondary">Please enter your credentials to continue</p>
+        <p class="text-secondary">
+          Please enter your details to get regsitered
+        </p>
       </div>
       <form action="">
         <div class="my-1">
@@ -40,7 +42,7 @@
             name="phone-number"
             placeholder="987456123"
             class="my bg"
-            prefix-icon="el-icon-user"
+            prefix-icon="el-icon-phone"
             v-model="user.phone"
           />
         </div>

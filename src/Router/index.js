@@ -1,8 +1,8 @@
 import VueRouter from "vue-router";
 
 // Pages
-import Login from "@/Pages/Login";
-import Register from "@/Pages/Register";
+import Login from "@/Pages/User/Login";
+import Register from "@/Pages/User/Register";
 
 const router = new VueRouter({
   mode: "history",
