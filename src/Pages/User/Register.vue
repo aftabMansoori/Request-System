@@ -26,7 +26,7 @@
             type="text"
             id="name"
             name="name"
-            placeholder="Jake Parelta"
+            placeholder="e.g. Jake Parelta"
             class="my bg"
             prefix-icon="el-icon-user"
             v-model="user.name"

@@ -14,7 +14,7 @@
               id="email"
               name="email"
               placeholder="name@email.com"
-              class="my bg"
+              class="my"
               v-model="credentials.email"
               prefix-icon="el-icon-message"
             />
