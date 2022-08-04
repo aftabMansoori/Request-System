@@ -1,7 +1,7 @@
 <template>
   <nav>
     <div>
-      <h2 class="mb-4 text-primary">
+      <h2 class="mb-4 text-primary text-center">
         <i class="fa-solid fa-draw-polygon mx"></i> Request System
       </h2>
       <ul>
@@ -21,7 +21,7 @@
         <i class="fa-solid fa-user"></i>
       </h2>
       <h3>Terry Crews</h3>
-      <p class="text-secondary">terrycrews@gmail.com</p>
+      <p class="text-secondary mb-2">terrycrews@gmail.com</p>
       <el-button plain
         >Logout <i class="fa-solid fa-right-from-bracket mx"></i
       ></el-button>
