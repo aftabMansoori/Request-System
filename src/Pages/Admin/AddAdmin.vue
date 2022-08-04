@@ -1,11 +1,11 @@
 <template>
   <section>
-    <div class="header">
+    <header class="">
       <h1 class="text-primary mb-none">Add Admin</h1>
       <small class="text-secondary"
         >Create different accounts to manage the request system</small
       >
-    </div>
+    </header>
 
     <div class="form-wrapper">
       <form>
@@ -114,7 +114,7 @@ form {
     overflow: auto;
   }
 
-  .header {
+  header {
     text-align: center;
     margin-bottom: 2em;
   }
