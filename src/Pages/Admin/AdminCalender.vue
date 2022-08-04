@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>Calender</h1>
+    <h1 class="text-primary">Calender</h1>
   </section>
 </template>
 
@@ -10,4 +10,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+section {
+  display: flex;
+  flex-direction: column;
+  padding: 0.7em 1em;
+}
+</style>
