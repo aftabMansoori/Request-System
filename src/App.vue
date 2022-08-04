@@ -32,10 +32,18 @@ export default {
 
 main {
   display: grid;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 2fr 9fr;
   grid-template-rows: 1fr;
   grid-gap: 10px 10px;
   min-height: 100vh;
+}
+
+@media (max-width: 1200px) {
+  main {
+    display: grid;
+    grid-template-columns: 3fr 8fr;
+    grid-template-rows: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
