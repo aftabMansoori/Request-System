@@ -16,7 +16,18 @@
       :with-header="false"
       size="80%"
     >
-      <span>Hi there!</span>
+      <ul class="mt-4">
+        <li
+          v-for="item in navItems"
+          :key="item.id"
+          :class="setActiveTab(item.route)"
+          @click="drawer()"
+        >
+          <router-link :to="item.route"
+            ><i class="mx" :class="item.icon"></i> {{ item.label }}</router-link
+          >
+        </li>
+      </ul>
     </el-drawer>
   </nav>
 </template>
@@ -27,11 +38,46 @@ export default {
   data() {
     return {
       showNav: false,
+      navItems: [
+        {
+          id: 1,
+          label: "Dashboard",
+          route: "/dashboard",
+          icon: "fa-solid fa-file",
+        },
+        {
+          id: 2,
+          label: "Video Requsted",
+          route: "/video-requested",
+          icon: "fa-solid fa-video",
+        },
+        {
+          id: 3,
+          label: "Leave Requested",
+          route: "/leave-requested",
+          icon: "fa-solid fa-door-open",
+        },
+        {
+          id: 4,
+          label: "Calender",
+          route: "/calender",
+          icon: "fa-solid fa-calendar",
+        },
+        {
+          id: 5,
+          label: "Add Admin",
+          route: "/add-admin",
+          icon: "fa-solid fa-user-plus",
+        },
+      ],
     };
   },
   methods: {
     drawer() {
       return (this.showNav = !this.showNav);
+    },
+    setActiveTab(route) {
+      return this.$route.path === route ? "active" : "";
     },
   },
 };
@@ -41,5 +87,22 @@ export default {
 nav > div {
   display: flex;
   justify-content: space-between;
+}
+
+ul {
+  list-style: none;
+  padding-inline-start: 0;
+}
+li {
+  margin: 1em 0;
+  padding: 1em 2em;
+  font-weight: 600;
+  color: #909399;
+}
+
+.active {
+  background: #409eff;
+  color: #fff;
+  border-radius: 7px;
 }
 </style>

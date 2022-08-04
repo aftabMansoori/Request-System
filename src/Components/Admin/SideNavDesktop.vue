@@ -95,10 +95,18 @@ li {
   font-weight: 600;
   color: #909399;
 }
+li:hover {
+  color: #409eff;
+  transform: scale(1.1);
+}
 
 .active {
   background: #409eff;
   color: #fff;
   border-radius: 7px;
+}
+.active:hover {
+  color: #fff;
+  transform: none;
 }
 </style>

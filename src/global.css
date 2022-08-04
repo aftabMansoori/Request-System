@@ -106,6 +106,13 @@ h6 {
   display: block;
 }
 
+/* Element UI Custom */
+.el-drawer__body {
+  padding: 2em 1em;
+  display: flex;
+  justify-content: center;
+}
+
 @media (max-width: 768px) {
   .d-lg-none {
     display: block !important;
