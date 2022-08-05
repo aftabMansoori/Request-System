@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import SideNavDesktop from "@/Components/Admin/SideNavDesktop";
-import SideNavMobile from "@/Components/Admin/SideNavMobile";
+import SideNavDesktop from "@/Components/SideNavDesktop";
+import SideNavMobile from "@/Components/SideNavMobile";
 
 export default {
   name: "App",

@@ -64,7 +64,6 @@ export default {
   },
   methods: {
     showDialog() {
-      console.log("hell");
       this.toggleDialog();
     },
   },

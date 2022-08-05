@@ -16,21 +16,21 @@
         <BaseTable :data="videosRequested" :toggleDialog="toggleDialog" />
       </div>
 
-      <BaseDialog :show="show" :toggleDialog="toggleDialog" />
+      <VideoShareDialog :show="show" :toggleDialog="toggleDialog" />
     </div>
   </section>
 </template>
 
 <script>
-import BaseSelect from "@/Components/Admin/BaseSelect.vue";
-import BaseTable from "@/Components/Admin/BaseTable.vue";
-import BaseDialog from "@/Components/Admin/BaseDialog.vue";
+import BaseSelect from "@/Components/BaseSelect.vue";
+import BaseTable from "@/Components/BaseTable.vue";
+import VideoShareDialog from "@/Components/Admin/VideoShareDialog.vue";
 
 import { RequestedVideo } from "@/data/RequestedVideoData";
 
 export default {
   name: "VideoRequested",
-  components: { BaseSelect, BaseTable, BaseDialog },
+  components: { BaseSelect, BaseTable, VideoShareDialog },
   data() {
     return {
       batches: [
@@ -62,7 +62,6 @@ export default {
   methods: {
     toggleDialog() {
       this.show = !this.show;
-      console.log(this.show);
     },
   },
 };

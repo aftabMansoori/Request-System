@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import BaseSelect from "@/Components/Admin/BaseSelect.vue";
-import BaseTable from "@/Components/Admin/BaseTable.vue";
+import BaseSelect from "@/Components/BaseSelect.vue";
+import BaseTable from "@/Components/BaseTable.vue";
 
 import { RequestedLeaves } from "@/data/RequestedLeaveData";
 
