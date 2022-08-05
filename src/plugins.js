@@ -8,9 +8,12 @@ import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import "./global.css";
 import "@fortawesome/fontawesome-free/css/all.css";
+import locale from "element-ui/lib/locale/lang/en";
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
 
 Vue.use(Vuelidate);
-Vue.use(ElementUI);
+Vue.use(ElementUI, { locale });
+
+Vue.config.lang = "en";
