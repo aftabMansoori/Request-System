@@ -5,15 +5,31 @@
         <i class="fa-solid fa-draw-polygon mx"></i> Request System
       </h2>
       <ul>
-        <li
-          v-for="item in navItems"
-          :key="item.id"
-          :class="setActiveTab(item.route)"
-        >
-          <router-link :to="item.route"
-            ><i class="mx" :class="item.icon"></i> {{ item.label }}</router-link
+        <template v-if="role === 'admin'">
+          <li
+            v-for="item in adminNavItems"
+            :key="item.id"
+            :class="setActiveTab(item.route)"
           >
-        </li>
+            <router-link :to="item.route"
+              ><i class="mx" :class="item.icon"></i>
+              {{ item.label }}</router-link
+            >
+          </li>
+        </template>
+
+        <template v-if="role === 'user'">
+          <li
+            v-for="item in userNavItems"
+            :key="item.id"
+            :class="setActiveTab(item.route)"
+          >
+            <router-link :to="item.route"
+              ><i class="mx" :class="item.icon"></i>
+              {{ item.label }}</router-link
+            >
+          </li>
+        </template>
       </ul>
     </div>
     <div class="text-center">
@@ -34,7 +50,7 @@ export default {
   name: "SideNav",
   data() {
     return {
-      navItems: [
+      adminNavItems: [
         {
           id: 1,
           label: "Dashboard",
@@ -66,7 +82,33 @@ export default {
           icon: "fa-solid fa-user-plus",
         },
       ],
+      userNavItems: [
+        {
+          id: 1,
+          label: "Activity",
+          route: "/activity",
+          icon: "fa-solid fa-file",
+        },
+        {
+          id: 2,
+          label: "Create Request",
+          route: "/create-request",
+          icon: "fa-solid fa-video",
+        },
+        {
+          id: 3,
+          label: "Requested Videos",
+          route: "/requested-videos",
+          icon: "fa-solid fa-door-open",
+        },
+      ],
     };
+  },
+  computed: {
+    role() {
+      const role = localStorage.getItem("role");
+      return role;
+    },
   },
   methods: {
     setActiveTab(route) {
