@@ -42,32 +42,31 @@
         </el-table-column>
       </template>
     </el-table>
-
-    <!-- <BaseDialog :show="show" :showDialog="showDialog" /> -->
   </div>
 </template>
 
 <script>
-// import BaseDialog from "./BaseDialog.vue";
-
 export default {
   name: "BaseTable",
-  props: ["data"],
-  // components: { BaseDialog },
+  props: {
+    toggleDialog: Function,
+    data: Array,
+  },
   data() {
     return {
       requests: this.data,
-      show: false,
     };
   },
   computed: {
     isAuth() {
       return localStorage.getItem("role");
     },
-    // showDialog() {
-    //   this.show = !this.show;
-    //   return this.show;
-    // },
+  },
+  methods: {
+    showDialog() {
+      console.log("hell");
+      this.toggleDialog();
+    },
   },
 };
 </script>

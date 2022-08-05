@@ -13,8 +13,10 @@
       </div>
 
       <div class="mt-4 table-wrapper">
-        <BaseTable :data="videosRequested" />
+        <BaseTable :data="videosRequested" :toggleDialog="toggleDialog" />
       </div>
+
+      <BaseDialog :show="show" :toggleDialog="toggleDialog" />
     </div>
   </section>
 </template>
@@ -22,12 +24,13 @@
 <script>
 import BaseSelect from "@/Components/Admin/BaseSelect.vue";
 import BaseTable from "@/Components/Admin/BaseTable.vue";
+import BaseDialog from "@/Components/Admin/BaseDialog.vue";
 
 import { RequestedVideo } from "@/data/RequestedVideoData";
 
 export default {
   name: "VideoRequested",
-  components: { BaseSelect, BaseTable },
+  components: { BaseSelect, BaseTable, BaseDialog },
   data() {
     return {
       batches: [
@@ -53,7 +56,14 @@ export default {
         },
       ],
       videosRequested: [...RequestedVideo],
+      show: false,
     };
+  },
+  methods: {
+    toggleDialog() {
+      this.show = !this.show;
+      console.log(this.show);
+    },
   },
 };
 </script>

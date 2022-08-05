@@ -1,9 +1,9 @@
 <template>
-  <el-dialog title="Tips" :visible.sync="showDialogBox" width="30%">
+  <el-dialog title="Tips" :visible="show" width="30%">
     <span>This is a message</span>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="showDialog">Cancel</el-button>
-      <el-button @click="showDialog" type="primary">Confirm</el-button>
+      <el-button @click="hideDialog">Cancel</el-button>
+      <el-button @click="hideDialog" type="primary">Confirm</el-button>
     </span>
   </el-dialog>
 </template>
@@ -13,19 +13,12 @@ export default {
   name: "BaseDialog",
   props: {
     show: Boolean,
-    showDialog: Function,
+    toggleDialog: Function,
   },
-  data() {
-    console.log(this.show);
-    return {
-      showDialogBox: this.show,
-    };
-  },
-  computed: {
-    // toggle() {
-    //   console.log(this.showDialogBox);
-    //   return this.showDialog();
-    // },
+  methods: {
+    hideDialog() {
+      this.toggleDialog();
+    },
   },
 };
 </script>
