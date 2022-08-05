@@ -3,6 +3,9 @@ import VueRouter from "vue-router";
 // User Pages
 import Login from "@/Pages/User/Login";
 import Register from "@/Pages/User/Register";
+import UserActivity from "@/Pages/User/UserActivity";
+import CreateRequest from "@/Pages/User/CreateRequest";
+import RequestedVideos from "@/Pages/User/RequestedVideos";
 
 // Admin Pages
 import AdminLogin from "@/Pages/Admin/AdminLogin";
@@ -55,6 +58,21 @@ const UserRoutes = [
     name: "AppRegister",
     path: "/register",
     component: Register,
+  },
+  {
+    name: "UserActivity",
+    path: "/activity",
+    component: UserActivity,
+  },
+  {
+    name: "CreateRequest",
+    path: "/create-request",
+    component: CreateRequest,
+  },
+  {
+    name: "RequestedVideos",
+    path: "/requested-videos",
+    component: RequestedVideos,
   },
 ];
 
