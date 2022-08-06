@@ -1,6 +1,5 @@
 <template>
-  <el-dialog title="Share Video" :visible="show" width="30%">
-    <BaseDatePicker message="Check the details and share the video" />
+  <el-dialog title="Manage Leave" :visible="show" width="30%">
     <span slot="footer" class="dialog-footer">
       <el-button @click="hideDialog">Cancel</el-button>
       <el-button @click="hideDialog" type="primary">Share</el-button>
@@ -9,13 +8,9 @@
 </template>
 
 <script>
-import BaseDatePicker from "../BaseDatePicker.vue";
-
 export default {
-  name: "VideoShareDialog",
-  components: {
-    BaseDatePicker,
-  },
+  name: "LeaveDialog",
+
   props: {
     show: Boolean,
     toggleDialog: Function,

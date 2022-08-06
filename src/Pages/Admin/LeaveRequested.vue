@@ -13,8 +13,10 @@
       </div>
 
       <div class="mt-4 table-wrapper">
-        <BaseTable :data="leavesRequested" />
+        <BaseTable :data="leavesRequested" :toggleDialog="toggleDialog" />
       </div>
+
+      <LeaveDialog :show="show" :toggleDialog="toggleDialog" />
     </div>
   </section>
 </template>
@@ -22,12 +24,13 @@
 <script>
 import BaseSelect from "@/Components/BaseSelect.vue";
 import BaseTable from "@/Components/BaseTable.vue";
+import LeaveDialog from "@/Components/Admin/LeaveDialog.vue";
 
 import { RequestedLeaves } from "@/data/RequestedLeaveData";
 
 export default {
   name: "LeaveRequested",
-  components: { BaseSelect, BaseTable },
+  components: { BaseSelect, BaseTable, LeaveDialog },
 
   data() {
     return {
@@ -54,7 +57,13 @@ export default {
         },
       ],
       leavesRequested: [...RequestedLeaves],
+      show: false,
     };
+  },
+  methods: {
+    toggleDialog() {
+      this.show = !this.show;
+    },
   },
 };
 </script>
