@@ -1,27 +1,21 @@
 <template>
-  <section>
-    <div>
-      <p class="mb-1">{{ message }}</p>
-      <el-date-picker
-        v-model="selectedDate"
-        type="date"
-        placeholder="Pick a day"
-        @change="selectDate"
-        style="width: 100%"
-      >
-      </el-date-picker>
-      <h3 class="my-1 mx">
-        {{ selectedDate | date }}
-      </h3>
-    </div>
-  </section>
+  <div>
+    <el-date-picker
+      v-model="selectedDate"
+      type="date"
+      :placeholder="placeholder || 'Pick a day'"
+      @change="selectDate"
+      style="width: 100%"
+    >
+    </el-date-picker>
+  </div>
 </template>
 
 <script>
 export default {
   name: "DatePicker",
   props: {
-    message: String,
+    placeholder: String,
   },
   data() {
     return {
@@ -30,7 +24,7 @@ export default {
   },
   methods: {
     selectDate() {
-      console.log(this.selectedDate);
+      this.$emit("setDate", { selectedDate: this.selectedDate });
     },
   },
 };
