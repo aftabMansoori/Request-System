@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <main>
+    <main class="">
       <SideNavDesktop class="d-sm-none" v-if="isAuth" />
       <SideNavMobile class="d-lg-none" v-if="isAuth" />
-      <router-view></router-view>
+      <div class="view-wrapper">
+        <router-view></router-view>
+      </div>
     </main>
   </div>
 </template>
@@ -36,6 +38,12 @@ main {
   grid-template-rows: 1fr;
   grid-gap: 10px 10px;
   min-height: 100vh;
+  overflow: auto;
+}
+
+.view-wrapper {
+  height: 100vh;
+  overflow: auto;
 }
 
 @media (max-width: 1200px) {
