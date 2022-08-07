@@ -139,7 +139,7 @@ li {
 }
 li:hover {
   color: #409eff;
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
 }
 
 .active {

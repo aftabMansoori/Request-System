@@ -101,7 +101,7 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 90%;
+  height: 80vh;
 }
 
 form {
