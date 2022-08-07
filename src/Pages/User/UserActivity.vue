@@ -2,14 +2,25 @@
   <section>
     <h1 class="text-primary mb-none">User Activity</h1>
     <small class="text-secondary"
-      >Requests for Video and Leave can be made here</small
+      >All the requests and their status will be available</small
     >
+
+    <div class="mt-4">
+      <div>
+        <ActivityTable />
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
+import ActivityTable from "@/Components/User/ActivityTable.vue";
+
 export default {
   name: "UserActivity",
+  components: {
+    ActivityTable,
+  },
 };
 </script>
 
