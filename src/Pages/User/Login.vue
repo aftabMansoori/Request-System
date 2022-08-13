@@ -5,7 +5,7 @@
         <h1>Login</h1>
         <p class="text-secondary">Please enter your credentials to continue</p>
       </div>
-      <form>
+      <form @submit.prevent="login">
         <div class="demo-input-size">
           <div class="my-1">
             <label class="text-secondary" for="email">Your email</label>
@@ -33,7 +33,13 @@
             />
           </div>
 
-          <el-button type="primary" class="w-100 my-1" round>Login</el-button>
+          <el-button
+            type="primary"
+            native-type="submit"
+            class="w-100 my-1"
+            round
+            >Login</el-button
+          >
 
           <p class="text-center">
             Don't have account?
@@ -57,6 +63,11 @@ export default {
         password: "",
       },
     };
+  },
+  methods: {
+    async login() {
+      await this.$store.dispatch("userLogin", this.credentials);
+    },
   },
 };
 </script>

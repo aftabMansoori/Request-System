@@ -1,12 +1,16 @@
 <template>
   <div id="app">
-    <main class="">
+    <main
+      class=""
+      v-if="$route.path !== '/login' && $route.path !== '/register'"
+    >
       <SideNavDesktop class="d-sm-none" v-if="isAuth" />
       <SideNavMobile class="d-lg-none" v-if="isAuth" />
       <div class="view-wrapper">
         <router-view></router-view>
       </div>
     </main>
+    <template v-else><router-view></router-view></template>
   </div>
 </template>
 
@@ -43,6 +47,7 @@ main {
 
 .view-wrapper {
   height: 100vh;
+  width: 100%;
   overflow: auto;
 }
 
