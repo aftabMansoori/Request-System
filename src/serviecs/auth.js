@@ -1,12 +1,13 @@
-import "./helpers";
+import config from "@/config";
+import Vue from "vue";
 import axios from "axios";
+import { successHanlder } from "./helpers";
 
-const login = async ({ email, password }) => {
-  console.log(process.env.VUE_APP_BASE_URL);
+const login = async ({ email, password, role }) => {
   try {
     const response = await axios.post(
-      `${process.env.BASE_URL}/user/login`,
-      { email, password },
+      `${config.baseUrl}/user/login`,
+      { email, password, role },
       {
         headers: {
           "Content-Type": "application/json",
@@ -14,9 +15,9 @@ const login = async ({ email, password }) => {
       }
     );
 
-    console.log(response);
+    return successHanlder(response);
   } catch (err) {
-    console.log("ERROR", err);
+    Vue.$toast.error(err.response.data.message, config.toastConfig);
   }
 };
 

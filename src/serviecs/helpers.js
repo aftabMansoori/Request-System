@@ -1,7 +1,7 @@
-const successHelper = async (response) => response.data;
+const successHanlder = async (response) => response.data;
 
-const errorHelper = async (err) => {
-  console.log(err.response.data.message);
+const errorHandler = async () => {
+  // this.$toast()
 };
 
-export { successHelper, errorHelper };
+export { successHanlder, errorHandler };
