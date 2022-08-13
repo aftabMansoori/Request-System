@@ -36,8 +36,8 @@
       <h2>
         <i class="fa-solid fa-user"></i>
       </h2>
-      <h3>Terry Crews</h3>
-      <p class="text-secondary mb-2">terrycrews@gmail.com</p>
+      <h3>{{ name }}</h3>
+      <p class="text-secondary mb-2">{{ email }}</p>
       <el-button plain @click="logout"
         >Logout <i class="fa-solid fa-right-from-bracket mx"></i
       ></el-button>
@@ -104,6 +104,8 @@ export default {
           icon: "fa-solid fa-door-open",
         },
       ],
+      name: this.$store.state.auth.name,
+      email: this.$store.state.auth.email,
     };
   },
   computed: {

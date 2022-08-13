@@ -1,4 +1,4 @@
-import { login } from "@/serviecs/auth";
+import { login } from "@/services/auth";
 import config from "@/config";
 
 const auth = {
@@ -6,6 +6,7 @@ const auth = {
     token: localStorage.getItem(config.KEY_TOKEN) || "",
     email: localStorage.getItem(config.KEY_EMAIL) || "",
     role: localStorage.getItem(config.KEY_ROLE) || "",
+    name: localStorage.getItem(config.KEY_NAME) || "",
   },
   getters: {
     isAuthenticated(state) {

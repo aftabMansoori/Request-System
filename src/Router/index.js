@@ -15,11 +15,7 @@ import VideoRequested from "@/Pages/Admin/VideoRequested";
 import LeaveRequested from "@/Pages/Admin/LeaveRequested";
 import AdminCalender from "@/Pages/Admin/AdminCalender";
 import AddAdmin from "@/Pages/Admin/AddAdmin";
-import store from "@/store";
-
-const meta = {
-  authorize: "general",
-};
+// import store from "@/store";
 
 const AdminRoutes = [
   {
@@ -31,26 +27,31 @@ const AdminRoutes = [
     name: "AdminDashboard",
     path: "/dashboard",
     component: AdminDashboard,
+    meta: ["admin"],
   },
   {
     name: "VideoRequested",
     path: "/video-requested",
     component: VideoRequested,
+    meta: ["admin"],
   },
   {
     name: "LeaveRequested",
     path: "/leave-requested",
     component: LeaveRequested,
+    meta: ["admin"],
   },
   {
     name: "AdminCalender",
     path: "/calender",
     component: AdminCalender,
+    meta: ["admin"],
   },
   {
     name: "AddAdmin",
     path: "/add-admin",
     component: AddAdmin,
+    meta: ["admin"],
   },
 ];
 
@@ -69,19 +70,19 @@ const UserRoutes = [
     name: "UserActivity",
     path: "/activity",
     component: UserActivity,
-    meta,
+    meta: ["general"],
   },
   {
     name: "CreateRequest",
     path: "/create-request",
     component: CreateRequest,
-    meta,
+    meta: ["general"],
   },
   {
     name: "RequestedVideos",
     path: "/requested-videos",
     component: RequestedVideos,
-    meta,
+    meta: ["general"],
   },
 ];
 
@@ -90,15 +91,15 @@ const router = new VueRouter({
   routes: [...UserRoutes, ...AdminRoutes],
 });
 
-router.beforeEach((to, from, next) => {
-  const { authorize } = to.meta;
-  // const role = localStorage.getItem("role");
+// router.beforeEach((to, from, next) => {
+//   const authorize = to.meta;
 
-  if (authorize) {
-    if (!store.getters.isAuthenticated) next({ path: "/login" });
-  }
-  next();
-});
+//   // // if (!authorize.includs(store.state.auth.roles)) next({ path: "/" });
+//   // if (authorize && !store.getters.isAuthenticated) next({ path: "/login" });
+//   // else next();
+//   if (authorize && !store.getters.isAuthenticated) next({ path: "/login" });
+//   else next();
+// });
 
 // if (to.matched.some((record) => record.meta.requiresAuth)) {
 //   if (localStorage.getItem("jwt") == null) {
