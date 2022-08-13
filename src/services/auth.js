@@ -1,7 +1,6 @@
 import config from "@/config";
-import Vue from "vue";
 import axios from "axios";
-import { successHanlder } from "./helpers";
+import { errorHandler } from "./helper";
 
 const login = async ({ email, password, role }) => {
   try {
@@ -15,9 +14,9 @@ const login = async ({ email, password, role }) => {
       }
     );
 
-    return successHanlder(response);
+    return response.data;
   } catch (err) {
-    Vue.$toast.error(err.response.data.message, config.toastConfig);
+    errorHandler(err);
   }
 };
 

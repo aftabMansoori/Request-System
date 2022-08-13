@@ -1,16 +1,42 @@
 <template>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column label="Date" width="180">
+  <el-table :data="requestData" style="width: 100%">
+    <el-table-column label="Requested On" width="180">
       <template slot-scope="scope">
         <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{ scope.row.date }}</span>
+        <span style="margin-left: 10px">{{ scope.row.createdAt | date }}</span>
       </template>
     </el-table-column>
-    <el-table-column label="Na,e" width="180">
+    <el-table-column label="Requested For" width="120">
+      <template slot-scope="scope">
+        <span>{{ scope.row.type }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column label="From" width="180">
+      <template slot-scope="scope">
+        <span>{{ scope.row.startDate | date }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column label="to" width="180">
+      <template slot-scope="scope">
+        <span>{{ scope.row.endDate | date }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column label="Status" width="180">
+      <template slot-scope="scope">
+        <span>{{ scope.row.requestStatus }}</span>
+      </template>
+    </el-table-column>
+    <!-- <el-table-column label="" width="180">
+      <template slot-scope="scope">
+        <span>{{ scope.row.name }}</span>
+      </template>
+    </el-table-column> -->
+    <el-table-column label="">
       <template slot-scope="scope">
         <span>{{ scope.row.name }}</span>
       </template>
     </el-table-column>
+
     <el-table-column label="Operations">
       <template slot-scope="scope">
         <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
@@ -32,30 +58,13 @@ export default {
   name: "ActivityTable",
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-03",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles",
-        },
-        {
-          date: "2016-05-02",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles",
-        },
-        {
-          date: "2016-05-04",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles",
-        },
-        {
-          date: "2016-05-01",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles",
-        },
-      ],
+      tableData: [],
     };
   },
+  props: {
+    requestData: Array,
+  },
+
   methods: {
     handleEdit(index, row) {
       console.log(index, row);
@@ -63,6 +72,18 @@ export default {
     handleDelete(index, row) {
       console.log(index, row);
     },
+    getRequests() {
+      this.tableData = this.requestData;
+    },
   },
 };
 </script>
+
+<style scoped>
+.approved {
+  background-color: rgb(109, 177, 109);
+  color: white;
+  padding: 1em 1.5em;
+  border-radius: 1.1em;
+}
+</style>
