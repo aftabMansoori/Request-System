@@ -5,7 +5,7 @@
         <h1>Login</h1>
         <p class="text-secondary">Please enter your credentials to continue</p>
       </div>
-      <form>
+      <form @submit.prevent="login">
         <div class="demo-input-size">
           <div class="my-1">
             <label class="text-secondary" for="email">Your email</label>
@@ -33,7 +33,13 @@
             />
           </div>
 
-          <el-button type="primary" class="w-100 my-1" round>Login</el-button>
+          <el-button
+            type="primary"
+            native-type="submit"
+            class="w-100 my-1"
+            round
+            >Login</el-button
+          >
         </div>
       </form>
     </section>
@@ -41,6 +47,8 @@
 </template>
 
 <script>
+import config from "@/config";
+
 export default {
   name: "AppLogin",
   data() {
@@ -48,8 +56,28 @@ export default {
       credentials: {
         email: "",
         password: "",
+        role: "admin",
       },
+      loading: false,
     };
+  },
+  methods: {
+    async login() {
+      this.loading = true;
+
+      try {
+        const user = await this.$store.dispatch("userLogin", this.credentials);
+        this.$toast.success(
+          `Hello ${user}! Login Successfull!`,
+          config.toastConfig
+        );
+        this.loading = false;
+
+        this.$router.push("/dashboard");
+      } catch (err) {
+        this.loading = false;
+      }
+    },
   },
 };
 </script>

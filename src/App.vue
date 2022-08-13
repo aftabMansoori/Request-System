@@ -2,10 +2,14 @@
   <div id="app">
     <main
       class=""
-      v-if="$route.path !== '/login' && $route.path !== '/register'"
+      v-if="
+        $route.path !== '/login' &&
+        $route.path !== '/register' &&
+        $route.path !== '/admin/login'
+      "
     >
-      <SideNavDesktop class="d-sm-none" v-if="isAuth" />
-      <SideNavMobile class="d-lg-none" v-if="isAuth" />
+      <SideNavDesktop class="d-sm-none" />
+      <SideNavMobile class="d-lg-none" />
       <div class="view-wrapper">
         <router-view></router-view>
       </div>
