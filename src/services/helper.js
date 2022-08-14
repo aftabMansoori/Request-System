@@ -3,7 +3,7 @@ import config from "@/config";
 
 const errorHandler = (err) => {
   console.log(err);
-  Vue.$toast.error(err.response.data.message, config.toastConfig);
+  Vue.$toast.error(err.response.data.message, config.toastConfig || err);
 };
 
 export { errorHandler };

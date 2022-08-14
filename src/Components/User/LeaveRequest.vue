@@ -92,11 +92,9 @@ export default {
             config.toastConfig
           );
 
-          this.request = {
-            startDate: "",
-            endDate: "",
-            reason: "",
-          };
+          this.request.startDate = "";
+          this.request.endDate = "";
+          this.request.reason = "";
 
           this.loading = false;
         } else {

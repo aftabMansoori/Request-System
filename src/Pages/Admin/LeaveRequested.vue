@@ -9,7 +9,7 @@
 
     <div>
       <div class="select-wrapper mt-4">
-        <BaseSelect :batches="batches" />
+        <BaseSelect :filter="batches" />
       </div>
 
       <div class="mt-4 table-wrapper">
@@ -37,21 +37,26 @@ export default {
       batches: [
         {
           id: 0,
+          name: "All",
+          value: "all",
+        },
+        {
+          id: 1,
           name: "JavaScript FullStack Batch 1",
           value: "mevn-batch-1",
         },
         {
-          id: 1,
+          id: 2,
           name: "JavaScript FullStack Batch 2",
           value: "mevn-batch-2",
         },
         {
-          id: 2,
+          id: 3,
           name: "DJANGO FullStack",
           value: "django",
         },
         {
-          id: 3,
+          id: 4,
           name: "UI/UX Developer",
           value: "ui-ux",
         },

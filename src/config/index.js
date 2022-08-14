@@ -2,7 +2,7 @@ const config = {
   baseUrl: "http://localhost:3000",
   KEY_TOKEN: "token",
   KEY_EMAIL: "email",
-  KEY_NAME: "username",
+  KEY_NAME: "name",
   KEY_ROLE: "role",
   toastConfig: {
     position: "top-right",
