@@ -20,11 +20,11 @@ const login = async ({ email, password, role }) => {
   }
 };
 
-const register = async (user) => {
+const register = async (user, role) => {
   try {
     const response = await axios.post(
       `${config.baseUrl}/user/register`,
-      { role: "general", ...user },
+      { role, ...user },
       {
         headers: {
           "Content-Type": "application/json",

@@ -163,7 +163,7 @@ export default {
 
           return;
         } else {
-          const userCreated = await register(this.user);
+          const userCreated = await register(this.user, "general");
 
           if (userCreated) {
             this.$toast.success("Registration successfull", config.toastConfig);
