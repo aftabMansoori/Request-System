@@ -26,7 +26,11 @@
     </div>
 
     <div class="mt-3 text-end">
-      <el-button type="primary" @click="createLeaveRequest" round
+      <el-button
+        type="primary"
+        @click.prevent="createLeaveRequest"
+        round
+        :disabled="loading"
         >Create Request</el-button
       >
     </div>
@@ -50,7 +54,7 @@
 
 <script>
 import config from "@/config";
-import { createLeaveRequest } from "@/services/requests";
+import { createRequest } from "@/services/requests";
 
 import BaseDatePicker from "../BaseDatePicker.vue";
 
@@ -80,16 +84,24 @@ export default {
     async createLeaveRequest() {
       this.loading = true;
       try {
-        const createdRequest = await createLeaveRequest(this.request);
+        const createdRequest = await createRequest(this.request);
 
         if (createdRequest) {
           this.$toast.success(
             "Leave request has been successfully created",
             config.toastConfig
           );
-        }
 
-        this.loading = false;
+          this.request = {
+            startDate: "",
+            endDate: "",
+            reason: "",
+          };
+
+          this.loading = false;
+        } else {
+          this.loading = false;
+        }
       } catch (err) {
         console.log(err);
         this.loading = false;

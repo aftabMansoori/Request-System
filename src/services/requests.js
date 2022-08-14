@@ -1,7 +1,7 @@
 import axiosConfig from "@/axiosConfig/axiosConfig";
 import { errorHandler } from "./helper";
 
-const createLeaveRequest = async (request) => {
+const createRequest = async (request) => {
   try {
     const response = await axiosConfig.post("/request", request);
 
@@ -12,4 +12,4 @@ const createLeaveRequest = async (request) => {
   }
 };
 
-export { createLeaveRequest };
+export { createRequest };

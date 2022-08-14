@@ -1,17 +1,10 @@
 <template>
   <div id="app">
-    <main
-      class=""
-      v-if="
-        $route.path !== '/login' &&
-        $route.path !== '/register' &&
-        $route.path !== '/admin/login'
-      "
-    >
+    <main class="" v-if="!skipRoutes.includes($route.path)">
       <SideNavDesktop class="d-sm-none" />
       <SideNavMobile class="d-lg-none" />
       <div class="view-wrapper">
-        <router-view></router-view>
+        <router-view :key="$route.path"></router-view>
       </div>
     </main>
     <template v-else><router-view></router-view></template>
@@ -28,6 +21,7 @@ export default {
   data() {
     return {
       isAuth: !!localStorage.getItem("role"),
+      skipRoutes: ["/", "/login", "/register", "/admin/login"],
     };
   },
 };

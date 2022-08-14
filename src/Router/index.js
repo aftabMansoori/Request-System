@@ -62,6 +62,11 @@ const UserRoutes = [
     component: Login,
   },
   {
+    name: "AppHome",
+    path: "/",
+    component: Login,
+  },
+  {
     name: "AppRegister",
     path: "/register",
     component: Register,
