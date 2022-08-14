@@ -20,4 +20,23 @@ const login = async ({ email, password, role }) => {
   }
 };
 
-export { login };
+const register = async (user) => {
+  try {
+    const response = await axios.post(
+      `${config.baseUrl}/user/register`,
+      { role: "general", ...user },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    errorHandler(err);
+  }
+};
+
+export { login, register };
