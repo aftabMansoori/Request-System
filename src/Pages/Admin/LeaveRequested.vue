@@ -32,8 +32,6 @@ import BaseSelect from "@/Components/BaseSelect.vue";
 import BaseTable from "@/Components/BaseTable.vue";
 import LeaveDialog from "@/Components/Admin/LeaveDialog.vue";
 
-// import { RequestedLeaves } from "@/data/RequestedLeaveData";
-
 export default {
   name: "LeaveRequested",
   components: { BaseSelect, BaseTable, LeaveDialog },
@@ -71,6 +69,7 @@ export default {
       show: false,
       selectedBatch: "all",
       type: "leave",
+      loading: false,
     };
   },
   methods: {
@@ -82,9 +81,12 @@ export default {
     },
     async getLeaveRequests() {
       try {
-        const leaveRequests = await getRequests(this.type, this.selectedBatch);
+        this.loading = true;
 
+        const leaveRequests = await getRequests(this.type, this.selectedBatch);
         this.leavesRequested = [...leaveRequests.data.requests];
+
+        this.loading = false;
       } catch (err) {
         console.log(err);
         throw err;

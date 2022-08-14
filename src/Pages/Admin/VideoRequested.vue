@@ -9,7 +9,11 @@
 
     <div>
       <div class="select-wrapper mt-4">
-        <BaseSelect :filter="batches" />
+        <BaseSelect
+          :filter="batches"
+          @selected="selectBatch"
+          @f="getVideoRequests"
+        />
       </div>
 
       <div class="mt-4 table-wrapper">
@@ -22,11 +26,11 @@
 </template>
 
 <script>
+import { getRequests } from "@/services/requests";
+
 import BaseSelect from "@/Components/BaseSelect.vue";
 import BaseTable from "@/Components/BaseTable.vue";
 import VideoShareDialog from "@/Components/Admin/VideoShareDialog.vue";
-
-import { RequestedVideo } from "@/data/RequestedVideoData";
 
 export default {
   name: "VideoRequested",
@@ -60,7 +64,10 @@ export default {
           value: "ui-ux",
         },
       ],
-      videosRequested: [...RequestedVideo],
+      videosRequested: [],
+      selectedBatch: "all",
+      type: "video",
+      loading: false,
       show: false,
     };
   },
@@ -68,6 +75,25 @@ export default {
     toggleDialog() {
       this.show = !this.show;
     },
+    selectBatch(value) {
+      this.selectedBatch = value;
+    },
+    async getVideoRequests() {
+      try {
+        this.loading = true;
+
+        const videoRequests = await getRequests(this.type, this.selectedBatch);
+        this.videosRequested = [...videoRequests.data.requests];
+
+        this.loading = false;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    },
+  },
+  created() {
+    this.getVideoRequests();
   },
 };
 </script>
