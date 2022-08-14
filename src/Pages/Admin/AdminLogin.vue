@@ -68,7 +68,7 @@ export default {
       try {
         const user = await this.$store.dispatch("userLogin", this.credentials);
         this.$toast.success(
-          `Hello ${user}! Login Successfull!`,
+          `Hello ${user}, Login Successfull!`,
           config.toastConfig
         );
         this.loading = false;

@@ -39,13 +39,11 @@
 
     <el-table-column label="Operations">
       <template slot-scope="scope">
-        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-          >Edit</el-button
-        >
+        <el-button size="mini" @click="handleEdit(scope.row)">Edit</el-button>
         <el-button
           size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)"
+          @click.prevent="handleDelete(scope.row)"
           >Delete</el-button
         >
       </template>
@@ -54,11 +52,15 @@
 </template>
 
 <script>
+import config from "@/config";
+import { deleteRequest } from "@/services/requests";
+
 export default {
   name: "ActivityTable",
   data() {
     return {
       tableData: [],
+      loading: false,
     };
   },
   props: {
@@ -66,14 +68,31 @@ export default {
   },
 
   methods: {
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
+    handleEdit(row) {
+      console.log(row);
     },
     getRequests() {
       this.tableData = this.requestData;
+    },
+    async handleDelete(row) {
+      this.loading = true;
+      try {
+        const status = await deleteRequest(row._id);
+
+        if (status === 204) {
+          this.$toast.success(
+            "Request deleted successfully",
+            config.toastConfig
+          );
+
+          this.$emit("getMyRequests");
+        }
+
+        this.loading = false;
+      } catch (err) {
+        console.log(err);
+        this.loading = false;
+      }
     },
   },
 };

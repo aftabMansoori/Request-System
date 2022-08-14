@@ -4,6 +4,7 @@
       <template v-if="isAuth === 'admin'">
         <el-table-column prop="name" label="Name" />
       </template>
+
       <el-table-column label="Requested On">
         <template slot-scope="scope">
           {{ scope.row.requestedOn | date }}

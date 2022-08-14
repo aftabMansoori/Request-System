@@ -12,4 +12,15 @@ const createRequest = async (request) => {
   }
 };
 
-export { createRequest };
+const deleteRequest = async (id) => {
+  try {
+    const response = await axiosConfig.delete(`/request/${id}`);
+
+    return response.status;
+  } catch (err) {
+    console.log(err);
+    errorHandler(err);
+  }
+};
+
+export { createRequest, deleteRequest };

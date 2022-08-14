@@ -14,7 +14,10 @@
         />
       </div>
       <div>
-        <ActivityTable :requestData="requestData" />
+        <ActivityTable
+          :requestData="requestData"
+          @getMyRequests="getMyRequests"
+        />
       </div>
     </div>
   </section>
