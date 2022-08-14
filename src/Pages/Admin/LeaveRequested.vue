@@ -9,7 +9,11 @@
 
     <div>
       <div class="select-wrapper mt-4">
-        <BaseSelect :filter="batches" />
+        <BaseSelect
+          :filter="batches"
+          @selected="selectBatch"
+          @f="getLeaveRequests"
+        />
       </div>
 
       <div class="mt-4 table-wrapper">
@@ -22,11 +26,13 @@
 </template>
 
 <script>
+import { getRequests } from "@/services/requests";
+
 import BaseSelect from "@/Components/BaseSelect.vue";
 import BaseTable from "@/Components/BaseTable.vue";
 import LeaveDialog from "@/Components/Admin/LeaveDialog.vue";
 
-import { RequestedLeaves } from "@/data/RequestedLeaveData";
+// import { RequestedLeaves } from "@/data/RequestedLeaveData";
 
 export default {
   name: "LeaveRequested",
@@ -61,14 +67,32 @@ export default {
           value: "ui-ux",
         },
       ],
-      leavesRequested: [...RequestedLeaves],
+      leavesRequested: [],
       show: false,
+      selectedBatch: "all",
+      type: "leave",
     };
   },
   methods: {
     toggleDialog() {
       this.show = !this.show;
     },
+    selectBatch(value) {
+      this.selectedBatch = value;
+    },
+    async getLeaveRequests() {
+      try {
+        const leaveRequests = await getRequests(this.type, this.selectedBatch);
+
+        this.leavesRequested = [...leaveRequests.data.requests];
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    },
+  },
+  created() {
+    this.getLeaveRequests();
   },
 };
 </script>

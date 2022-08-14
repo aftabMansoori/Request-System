@@ -1,29 +1,39 @@
 <template>
   <div>
-    <el-table :data="requests">
-      <template v-if="isAuth === 'admin'">
+    <el-table :data="data">
+      <!-- <template v-if="isAuth === 'admin'">
         <el-table-column prop="name" label="Name" />
-      </template>
+      </template> -->
+      <el-table-column label="Name">
+        <template slot-scope="scope">
+          {{ scope.row.name }}
+        </template>
+      </el-table-column>
 
       <el-table-column label="Requested On">
         <template slot-scope="scope">
-          {{ scope.row.requestedOn | date }}
+          {{ scope.row.createdAt | date }}
         </template>
       </el-table-column>
 
-      <el-table-column label="Requested For">
+      <el-table-column label="From">
         <template slot-scope="scope">
-          {{ scope.row.requestedFor || scope.row.startDate | date }}
+          {{ scope.row.startDate | date }}
         </template>
       </el-table-column>
-      <el-table-column prop="phone" label="Phone" />
+      <el-table-column label="to">
+        <template slot-scope="scope">
+          {{ scope.row.endDate | date }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="requestStatus" label="Status" />
 
       <!-- <el-table-column label="Name">
       <template slot-scope="scope">
         {{ scope.row.name }}
       </template> -->
       <template v-if="isAuth === 'admin'">
-        <el-table-column label="Operations">
+        <el-table-column label="Action">
           <template>
             <el-button type="primary" size="mini" @click="showDialog"
               ><i class="fa-solid fa-check"></i
@@ -32,14 +42,6 @@
               ><i class="fa-solid fa-xmark"></i
             ></el-button>
           </template>
-        </el-table-column>
-      </template>
-
-      <template v-if="isAuth === 'user'">
-        <el-table-column label="Status">
-          <!-- <template slot-scope="scope">
-            status
-          </template> -->
         </el-table-column>
       </template>
     </el-table>
@@ -54,9 +56,7 @@ export default {
     data: Array,
   },
   data() {
-    return {
-      requests: this.data,
-    };
+    return {};
   },
   computed: {
     isAuth() {

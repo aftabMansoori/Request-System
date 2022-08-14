@@ -23,4 +23,21 @@ const deleteRequest = async (id) => {
   }
 };
 
-export { createRequest, deleteRequest };
+const getRequests = async (type, batch) => {
+  try {
+    const response = await axiosConfig.get(
+      "/request?" +
+        new URLSearchParams({
+          type,
+          batch,
+        })
+    );
+
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    errorHandler(err);
+  }
+};
+
+export { createRequest, deleteRequest, getRequests };
