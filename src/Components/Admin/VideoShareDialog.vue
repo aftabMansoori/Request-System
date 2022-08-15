@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     hideDialog() {
-      this.toggleDialog();
+      this.$emit("toggleDialog");
     },
   },
 };

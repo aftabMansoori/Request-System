@@ -40,4 +40,21 @@ const getRequests = async (type, batch) => {
   }
 };
 
-export { createRequest, deleteRequest, getRequests };
+const manageRequest = async ({ id, type, status }) => {
+  try {
+    const response = await axiosConfig.patch(
+      `/request/${id}?` +
+        new URLSearchParams({
+          type,
+        }),
+      { status }
+    );
+
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    errorHandler(err);
+  }
+};
+
+export { createRequest, deleteRequest, getRequests, manageRequest };

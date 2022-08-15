@@ -17,10 +17,20 @@
       </div>
 
       <div class="mt-4 table-wrapper">
-        <BaseTable :data="leavesRequested" :toggleDialog="toggleDialog" />
+        <BaseTable
+          :data="leavesRequested"
+          @toggleDialog="toggleDialog"
+          @setAction="setAction"
+          :loading="loading"
+        />
       </div>
 
-      <LeaveDialog :show="show" :toggleDialog="toggleDialog" />
+      <LeaveDialog
+        :show="show"
+        @toggleDialog="toggleDialog"
+        @f="getLeaveRequests"
+        :manageRequest="manageRequest"
+      />
     </div>
   </section>
 </template>
@@ -70,7 +80,18 @@ export default {
       selectedBatch: "all",
       type: "leave",
       loading: false,
+      leaveId: "",
+      status: "",
     };
+  },
+  computed: {
+    manageRequest() {
+      return {
+        id: this.leaveId,
+        type: this.type,
+        status: this.status,
+      };
+    },
   },
   methods: {
     toggleDialog() {
@@ -91,6 +112,10 @@ export default {
         console.log(err);
         throw err;
       }
+    },
+    setAction({ id, status }) {
+      this.leaveId = id;
+      this.status = status;
     },
   },
   created() {
