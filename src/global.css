@@ -141,6 +141,10 @@ p {
   text-align: end;
 }
 
+.d-none {
+  display: none;
+}
+
 .d-lg-none {
   display: none !important;
 }

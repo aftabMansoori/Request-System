@@ -16,6 +16,15 @@
               {{ item.label }}</router-link
             >
           </li>
+          <li
+            key="4"
+            :class="setActiveTab('/add-admin')"
+            v-if="$store.state.auth.can_create"
+          >
+            <router-link to="/add-admin"
+              ><i class="fa-solid fa-user-plus mx"></i> Add Admin
+            </router-link>
+          </li>
         </template>
 
         <template v-if="role === 'general'">
@@ -71,18 +80,12 @@ export default {
           route: "/leave-requested",
           icon: "fa-solid fa-door-open",
         },
-        {
-          id: 4,
-          label: "Calender",
-          route: "/calender",
-          icon: "fa-solid fa-calendar",
-        },
-        {
-          id: 5,
-          label: "Add Admin",
-          route: "/add-admin",
-          icon: "fa-solid fa-user-plus",
-        },
+        // {
+        //   id: 4,
+        //   label: "Add Admin",
+        //   route: "/add-admin",
+        //   icon: "fa-solid fa-user-plus",
+        // },
       ],
       userNavItems: [
         {
@@ -106,13 +109,8 @@ export default {
       ],
       name: this.$store.state.auth.name,
       email: this.$store.state.auth.email,
+      role: this.$store.state.auth.role,
     };
-  },
-  computed: {
-    role() {
-      const role = localStorage.getItem("role");
-      return role;
-    },
   },
   methods: {
     setActiveTab(route) {
@@ -149,7 +147,6 @@ li {
 }
 li:hover {
   color: #409eff;
-  /* transform: scale(1.1); */
 }
 
 .active {

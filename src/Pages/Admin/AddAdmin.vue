@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { register } from "@/services/auth";
+import { addAmin } from "@/services/auth";
 import config from "@/config";
 
 export default {
@@ -99,7 +99,7 @@ export default {
       this.loading = true;
 
       try {
-        const adminCreated = await register(this.user, "admin");
+        const adminCreated = await addAmin(this.user, "admin");
 
         if (adminCreated) {
           this.$toast.success("Admin created successfull", config.toastConfig);
@@ -114,7 +114,7 @@ export default {
 
           this.loading = false;
         } else {
-          throw new Error("There was some issue");
+          throw new Error("There was some issue while creating admin");
         }
       } catch (err) {
         this.loading = false;
