@@ -3,7 +3,7 @@
     <span class="dialog-body">{{ setTitle }}</span>
 
     <span slot="footer" class="dialog-footer">
-      <el-button @click="hideDialog">Cancel</el-button>
+      <el-button @click.prevent="hideDialog">Cancel</el-button>
       <el-button @click.prevent="updateStatus" :type="setClass">{{
         setStatus
       }}</el-button>

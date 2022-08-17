@@ -23,13 +23,14 @@ const deleteRequest = async (id) => {
   }
 };
 
-const getRequests = async (type, batch) => {
+const getRequests = async (type, batch, status) => {
   try {
     const response = await axiosConfig.get(
       "/request?" +
         new URLSearchParams({
           type,
           batch,
+          status,
         })
     );
 

@@ -14,13 +14,40 @@
           @selected="selectBatch"
           @f="getVideoRequests"
         />
+
+        <BaseSelect
+          :filter="requests"
+          @selected="selectRequest"
+          @f="getVideoRequests"
+          class="mx-1"
+        />
       </div>
 
       <div class="mt-4 table-wrapper">
-        <BaseTable :data="videosRequested" :toggleDialog="toggleDialog" />
+        <BaseTable
+          :data="videosRequested"
+          @toggleDialog="toggleDialog"
+          v-if="showTable"
+        />
+
+        <div class="no-data-img" v-if="!showTable">
+          <img src="@/assets/no-data.svg" alt="" />
+          <div class="mt-3 text-center">
+            <h2>No requests</h2>
+            <p>
+              All the requests have been managed by you or no requests exists
+              for now
+            </p>
+          </div>
+        </div>
       </div>
 
-      <VideoShareDialog :show="show" :toggleDialog="toggleDialog" />
+      <VideoShareDialog
+        :show="show"
+        @toggleDialog="toggleDialog"
+        @f="getVideoRequests"
+        :manageRequest="manageRequest"
+      />
     </div>
   </section>
 </template>
@@ -64,12 +91,42 @@ export default {
           value: "ui-ux",
         },
       ],
+      requests: [
+        {
+          id: 0,
+          name: "Requested",
+          value: "requested",
+        },
+        {
+          id: 1,
+          name: "Approved",
+          value: "approved",
+        },
+        {
+          id: 2,
+          name: "Rejected",
+          value: "rejected",
+        },
+      ],
       videosRequested: [],
       selectedBatch: "all",
       type: "video",
       loading: false,
       show: false,
+      showTable: true,
+      selectedRequest: "requested",
+      leaveId: "",
+      updateStatus: "",
     };
+  },
+  computed: {
+    manageRequest() {
+      return {
+        id: this.leaveId,
+        type: this.type,
+        status: this.updateStatus,
+      };
+    },
   },
   methods: {
     toggleDialog() {
@@ -78,12 +135,25 @@ export default {
     selectBatch(value) {
       this.selectedBatch = value;
     },
+    selectRequest(value) {
+      this.selectedRequest = value;
+    },
     async getVideoRequests() {
       try {
         this.loading = true;
 
-        const videoRequests = await getRequests(this.type, this.selectedBatch);
-        this.videosRequested = [...videoRequests.data.requests];
+        const videoRequests = await getRequests(
+          this.type,
+          this.selectedBatch,
+          this.selectedRequest
+        );
+
+        if (videoRequests.data.requests.length !== 0) {
+          this.videosRequested = videoRequests.data.requests;
+          this.showTable = true;
+        } else {
+          this.showTable = false;
+        }
 
         this.loading = false;
       } catch (err) {
@@ -112,6 +182,21 @@ section {
 .table-wrapper {
   height: 70vh;
   overflow: auto;
+}
+
+.no-data-img {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.no-data-img > img {
+  width: 400px;
+  height: auto;
+  background-color: #fff;
+  margin-left: -7em;
 }
 
 @media (max-width: 768px) {

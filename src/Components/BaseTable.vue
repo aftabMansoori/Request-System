@@ -40,12 +40,20 @@
                 type="primary"
                 size="mini"
                 @click="showDialog(scope.row._id, 'Approved')"
+                v-if="
+                  scope.row.requestStatus === 'Requested' ||
+                  scope.row.requestStatus === 'Rejected'
+                "
                 ><i class="fa-solid fa-check"></i
               ></el-button>
               <el-button
                 size="mini"
                 type="danger"
                 @click="showDialog(scope.row._id, 'Rejected')"
+                v-if="
+                  scope.row.requestStatus === 'Requested' ||
+                  scope.row.requestStatus === 'Approved'
+                "
                 ><i class="fa-solid fa-xmark"></i
               ></el-button>
             </template>
