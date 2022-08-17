@@ -6,48 +6,51 @@
         <span style="margin-left: 10px">{{ scope.row.createdAt | date }}</span>
       </template>
     </el-table-column>
+
     <el-table-column label="Requested For" width="120">
       <template slot-scope="scope">
-        <span>{{ scope.row.type }}</span>
+        <span>{{ scope.row.type | toCapitalised }}</span>
       </template>
     </el-table-column>
+
     <el-table-column label="From">
       <template slot-scope="scope">
         <span>{{ scope.row.startDate | date }}</span>
       </template>
     </el-table-column>
+
     <el-table-column label="to">
       <template slot-scope="scope">
         <span>{{ scope.row.endDate | date }}</span>
       </template>
     </el-table-column>
+
     <el-table-column label="Status">
       <template slot-scope="scope">
-        <span :class="getStatusClass(scope.row.requestStatus)">{{
-          scope.row.requestStatus
-        }}</span>
-      </template>
-    </el-table-column>
-    <!-- <el-table-column label="" width="180">
-      <template slot-scope="scope">
-        <span>{{ scope.row.name }}</span>
-      </template>
-    </el-table-column> -->
-    <el-table-column label="Managed by">
-      <template slot-scope="scope">
-        <span>{{ scope.row.adminName }}</span>
+        <span :class="getStatusClass(scope.row.requestStatus)"
+          >{{ scope.row.requestStatus }}
+        </span>
       </template>
     </el-table-column>
 
-    <el-table-column label="Operations">
+    <el-table-column label="Managed by">
       <template slot-scope="scope">
-        <el-button size="mini" @click="handleEdit(scope.row)">Edit</el-button>
+        <small v-if="scope.row.adminName">by {{ scope.row.adminName }}</small>
+        <small class="text-secondary" v-else>in progress</small>
+      </template>
+    </el-table-column>
+
+    <el-table-column label="">
+      <template slot-scope="scope">
+        <!-- <el-button size="mini" type="primary" @click="handleEdit(scope.row)"
+          ><i class="fa-solid fa-pen"></i
+        ></el-button> -->
         <el-button
           size="mini"
           type="danger"
           @click.prevent="handleDelete(scope.row)"
-          >Delete</el-button
-        >
+          ><i class="fa-solid fa-trash"></i
+        ></el-button>
       </template>
     </el-table-column>
   </el-table>

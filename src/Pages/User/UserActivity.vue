@@ -12,6 +12,16 @@
           @selected="selectFilter"
           @f="getMyRequests"
         />
+
+        <div>
+          <el-button size="mini" type="primary">
+            <i class="fa-solid fa-angle-left"></i
+          ></el-button>
+
+          <el-button size="mini" type="primary">
+            <i class="fa-solid fa-angle-right"></i
+          ></el-button>
+        </div>
       </div>
       <div>
         <ActivityTable
@@ -65,6 +75,7 @@ export default {
         const { data } = await getUserRequests(this.type);
 
         this.requestData = [...data];
+        this.requestData.reverse();
       } catch (err) {
         this.$toast.error(
           err.response.data.message ||
@@ -91,7 +102,7 @@ section {
 .filter {
   width: 100%;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   margin-bottom: 1em;
 }
 
