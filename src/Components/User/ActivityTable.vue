@@ -1,6 +1,6 @@
 <template>
   <el-table :data="requestData" style="width: 100%">
-    <el-table-column label="Requested On" width="180">
+    <el-table-column label="Requested On">
       <template slot-scope="scope">
         <i class="el-icon-time"></i>
         <span style="margin-left: 10px">{{ scope.row.createdAt | date }}</span>
@@ -11,19 +11,21 @@
         <span>{{ scope.row.type }}</span>
       </template>
     </el-table-column>
-    <el-table-column label="From" width="180">
+    <el-table-column label="From">
       <template slot-scope="scope">
         <span>{{ scope.row.startDate | date }}</span>
       </template>
     </el-table-column>
-    <el-table-column label="to" width="180">
+    <el-table-column label="to">
       <template slot-scope="scope">
         <span>{{ scope.row.endDate | date }}</span>
       </template>
     </el-table-column>
-    <el-table-column label="Status" width="180">
+    <el-table-column label="Status">
       <template slot-scope="scope">
-        <span>{{ scope.row.requestStatus }}</span>
+        <span :class="getStatusClass(scope.row.requestStatus)">{{
+          scope.row.requestStatus
+        }}</span>
       </template>
     </el-table-column>
     <!-- <el-table-column label="" width="180">
@@ -31,9 +33,9 @@
         <span>{{ scope.row.name }}</span>
       </template>
     </el-table-column> -->
-    <el-table-column label="">
+    <el-table-column label="Managed by">
       <template slot-scope="scope">
-        <span>{{ scope.row.name }}</span>
+        <span>{{ scope.row.adminName }}</span>
       </template>
     </el-table-column>
 
@@ -66,7 +68,6 @@ export default {
   props: {
     requestData: Array,
   },
-
   methods: {
     handleEdit(row) {
       console.log(row);
@@ -93,6 +94,11 @@ export default {
         console.log(err);
         this.loading = false;
       }
+    },
+    getStatusClass(status) {
+      if (status === "Rejected") return "text-danger fw-bold";
+      else if (status === "Approved") return "text-success fw-bold";
+      else return "text-secondary";
     },
   },
 };

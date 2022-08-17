@@ -91,7 +91,7 @@ section {
 .filter {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: start;
   margin-bottom: 1em;
 }
 
