@@ -41,10 +41,22 @@
                 size="mini"
                 @click="showDialog(scope.row._id, 'Approved')"
                 v-if="
-                  scope.row.requestStatus === 'Requested' ||
-                  scope.row.requestStatus === 'Rejected'
+                  scope.row.type === 'leave' &&
+                  (scope.row.requestStatus === 'Requested' ||
+                    scope.row.requestStatus === 'Rejected')
                 "
                 ><i class="fa-solid fa-check"></i
+              ></el-button>
+              <el-button
+                type="primary"
+                size="mini"
+                @click="showDialog(scope.row._id, 'Approved')"
+                v-if="
+                  scope.row.type === 'video' &&
+                  (scope.row.requestStatus === 'Requested' ||
+                    scope.row.requestStatus === 'Rejected')
+                "
+                ><i class="fa-solid fa-share-nodes"></i
               ></el-button>
               <el-button
                 size="mini"
