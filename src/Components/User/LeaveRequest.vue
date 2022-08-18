@@ -128,37 +128,6 @@ export default {
   align-items: center;
   margin-top: 2em;
 }
-.date {
-  width: 120px;
-  height: 130px;
-  border: 1px solid #aeb2b8;
-  border-radius: 7px;
-  margin: 1em 0;
-}
-
-.date1 {
-  width: 100%;
-  height: 20%;
-  text-align: center;
-  font-size: 1.1em;
-}
-
-.date2 {
-  height: 60%;
-  font-size: 4em;
-  font-weight: 600;
-  text-align: center;
-  border-top: 1px solid #909399;
-  border-bottom: 1px solid #909399;
-  width: 100%;
-}
-
-.date3 {
-  width: 100%;
-  height: 20%;
-  text-align: center;
-  font-size: 1.1em;
-}
 
 @media (max-width: 768px) {
   .leave-wrapper {

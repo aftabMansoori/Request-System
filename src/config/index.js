@@ -4,6 +4,7 @@ const config = {
   KEY_EMAIL: "email",
   KEY_NAME: "name",
   KEY_ROLE: "role",
+  KEY_CAN_CREATE: "can-create",
   toastConfig: {
     position: "top-right",
     timeout: 3048,
@@ -19,5 +20,7 @@ const config = {
     rtl: false,
   },
 };
+
+// https://request-system-backend-fynd.herokuapp.com/
 
 export default config;

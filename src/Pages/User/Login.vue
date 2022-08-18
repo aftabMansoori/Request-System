@@ -103,4 +103,10 @@ main {
 section {
   width: 400px;
 }
+
+@media (max-width: 768px) {
+  section {
+    width: auto;
+  }
+}
 </style>

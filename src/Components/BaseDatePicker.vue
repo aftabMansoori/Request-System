@@ -23,6 +23,7 @@ export default {
   methods: {
     selectDate() {
       this.$emit("setDate", this.selectedDate);
+      this.$emit("f");
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="Request" :visible="show" width="30%">
+  <el-dialog title="Request" :show-close="false" :visible="show" width="30%">
     <span class="dialog-body">{{ setTitle }}</span>
 
     <span slot="footer" class="dialog-footer">
@@ -34,7 +34,6 @@ export default {
       else return "Are you sure you want to reject the request?";
     },
     setStatus() {
-      console.log(this.manageRequest.status);
       if (this.manageRequest.status === "Approved") return "Approve";
       else return "Reject";
     },

@@ -13,4 +13,14 @@ const getUserRequests = async (type) => {
   }
 };
 
-export { getUserRequests };
+const getSharedFiles = async () => {
+  try {
+    const response = await axiosConfig.get("/user/files");
+
+    return response.data;
+  } catch (err) {
+    errorHandler(err);
+  }
+};
+
+export { getUserRequests, getSharedFiles };

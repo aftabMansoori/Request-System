@@ -27,6 +27,8 @@
         <BaseTable
           :data="videosRequested"
           @toggleDialog="toggleDialog"
+          @getRequestId="getRequestId"
+          @f="getVideoRequests"
           v-if="showTable"
         />
 
@@ -46,7 +48,7 @@
         :show="show"
         @toggleDialog="toggleDialog"
         @f="getVideoRequests"
-        :manageRequest="manageRequest"
+        :requestId="requestId"
       />
     </div>
   </section>
@@ -115,18 +117,8 @@ export default {
       show: false,
       showTable: true,
       selectedRequest: "requested",
-      leaveId: "",
-      updateStatus: "",
+      requestId: "",
     };
-  },
-  computed: {
-    manageRequest() {
-      return {
-        id: this.leaveId,
-        type: this.type,
-        status: this.updateStatus,
-      };
-    },
   },
   methods: {
     toggleDialog() {
@@ -160,6 +152,9 @@ export default {
         console.log(err);
         throw err;
       }
+    },
+    getRequestId(id) {
+      this.requestId = id;
     },
   },
   created() {

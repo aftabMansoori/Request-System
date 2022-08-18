@@ -29,6 +29,16 @@
               {{ item.label }}</router-link
             >
           </li>
+          <li
+            key="4"
+            @click="drawer()"
+            :class="setActiveTab('/add-admin')"
+            v-if="$store.state.auth.can_create"
+          >
+            <router-link to="/add-admin"
+              ><i class="fa-solid fa-user-plus mx"></i> Add Admin
+            </router-link>
+          </li>
         </template>
         <template v-if="role === 'general'">
           <li
@@ -38,17 +48,29 @@
             @click="drawer()"
           >
             <router-link :to="item.route"
-              ><i class="mx" :class="item.icon"></i>
-              {{ item.label }}</router-link
+              ><i :class="item.icon"></i> {{ item.label }}</router-link
             >
           </li>
         </template>
       </ul>
+
+      <div class="text-center">
+        <h2>
+          <i class="fa-solid fa-user"></i>
+        </h2>
+        <h3>{{ name }}</h3>
+        <p class="text-secondary mb-2">{{ email }}</p>
+        <el-button plain @click="logout"
+          >Logout <i class="fa-solid fa-right-from-bracket mx"></i
+        ></el-button>
+      </div>
     </el-drawer>
   </nav>
 </template>
 
 <script>
+import config from "@/config";
+
 export default {
   name: "SideNavMobile",
   data() {
@@ -73,18 +95,12 @@ export default {
           route: "/leave-requested",
           icon: "fa-solid fa-door-open",
         },
-        {
-          id: 4,
-          label: "Calender",
-          route: "/calender",
-          icon: "fa-solid fa-calendar",
-        },
-        {
-          id: 5,
-          label: "Add Admin",
-          route: "/add-admin",
-          icon: "fa-solid fa-user-plus",
-        },
+        // {
+        //   id: 4,
+        //   label: "Add Admin",
+        //   route: "/add-admin",
+        //   icon: "fa-solid fa-user-plus",
+        // },
       ],
       userNavItems: [
         {
@@ -117,6 +133,12 @@ export default {
     },
     setActiveTab(route) {
       return this.$route.path === route ? "active" : "";
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$toast.success("Logout successful", config.toastConfig);
+
+      this.$router.push("/login");
     },
   },
 };

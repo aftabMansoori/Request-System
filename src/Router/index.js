@@ -1,5 +1,5 @@
 import VueRouter from "vue-router";
-// import store from "@/store";
+import store from "@/store";
 
 // User Pages
 import Login from "@/Pages/User/Login";
@@ -13,9 +13,7 @@ import AdminLogin from "@/Pages/Admin/AdminLogin";
 import AdminDashboard from "@/Pages/Admin/AdminDashboard";
 import VideoRequested from "@/Pages/Admin/VideoRequested";
 import LeaveRequested from "@/Pages/Admin/LeaveRequested";
-import AdminCalender from "@/Pages/Admin/AdminCalender";
 import AddAdmin from "@/Pages/Admin/AddAdmin";
-// import store from "@/store";
 
 const AdminRoutes = [
   {
@@ -39,12 +37,6 @@ const AdminRoutes = [
     name: "LeaveRequested",
     path: "/leave-requested",
     component: LeaveRequested,
-    meta: ["admin"],
-  },
-  {
-    name: "AdminCalender",
-    path: "/calender",
-    component: AdminCalender,
     meta: ["admin"],
   },
   {
@@ -96,15 +88,12 @@ const router = new VueRouter({
   routes: [...UserRoutes, ...AdminRoutes],
 });
 
-// router.beforeEach((to, from, next) => {
-//   const authorize = to.meta;
+router.beforeEach((to, from, next) => {
+  const authorize = to.meta;
 
-//   // // if (!authorize.includs(store.state.auth.roles)) next({ path: "/" });
-//   // if (authorize && !store.getters.isAuthenticated) next({ path: "/login" });
-//   // else next();
-//   if (authorize && !store.getters.isAuthenticated) next({ path: "/login" });
-//   else next();
-// });
+  if (!authorize && !store.getters.isAuthenticated) next({ path: "/login" });
+  else next();
+});
 
 // if (to.matched.some((record) => record.meta.requiresAuth)) {
 //   if (localStorage.getItem("jwt") == null) {
