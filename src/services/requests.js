@@ -41,14 +41,14 @@ const getRequests = async (type, batch, status) => {
   }
 };
 
-const manageRequest = async ({ id, type, status }) => {
+const manageRequest = async ({ id, type, status, video }) => {
   try {
     const response = await axiosConfig.patch(
       `/request/${id}?` +
         new URLSearchParams({
           type,
         }),
-      { status }
+      { status, video }
     );
 
     return response.data;

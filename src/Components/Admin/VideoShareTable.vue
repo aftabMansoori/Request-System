@@ -18,15 +18,12 @@
         <el-button
           size="mini"
           type="primary"
-          @click="handleEdit(scope.$index, scope.row)"
+          @click="setStatus(scope.row, 'Approved')"
           >Share</el-button
         >
-        <el-button
-          size="mini"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)"
+        <!-- <el-button size="mini" type="danger" @click="rejectStatus('Rejected')"
           >Reject</el-button
-        >
+        > -->
       </template>
     </el-table-column>
   </el-table>
@@ -37,6 +34,16 @@ export default {
   name: "VideoShareDialog",
   props: {
     tableData: Array,
+  },
+  methods: {
+    setStatus(video, status) {
+      this.$emit("setAction", { status, video });
+      this.$emit("toggleDialog");
+    },
+    // rejectStatus(status) {
+    //   this.$emit("setAction", { status });
+    //   this.$emit("toggleDialog");
+    // },
   },
 };
 </script>

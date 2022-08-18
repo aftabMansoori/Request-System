@@ -20,11 +20,18 @@
       </div>
     </div>
 
-    <VideoShareTable :tableData="videoList" :loading="loading" />
+    <VideoShareTable
+      @setAction="setAction"
+      @toggleDialog="shareVideoDialog"
+      :tableData="videoList"
+    />
 
-    <!-- <span slot="footer" class="dialog-footer">
- 
-    </span> -->
+    <VideoShareBox
+      :showShareBox="showShareBox"
+      @toggleDialog="shareVideoDialog"
+      :manageRequest="manageRequest"
+      @cb="getVideoRequestsCB"
+    />
   </el-dialog>
 </template>
 
@@ -34,6 +41,7 @@ import { getVideosByBatch } from "@/services/admin";
 import BaseDatePicker from "../BaseDatePicker.vue";
 import BaseSelect from "../BaseSelect.vue";
 import VideoShareTable from "./VideoShareTable.vue";
+import VideoShareBox from "./VideoShareBox.vue";
 
 export default {
   name: "VideoShareDialog",
@@ -41,10 +49,11 @@ export default {
     BaseDatePicker,
     BaseSelect,
     VideoShareTable,
+    VideoShareBox,
   },
   props: {
     show: Boolean,
-    manageRequest: Object,
+    requestId: String,
   },
   data() {
     return {
@@ -79,7 +88,22 @@ export default {
       batch: "all",
       loading: false,
       videoList: [],
+      leaveId: "",
+      updateStatus: "",
+      type: "video",
+      video: {},
+      showShareBox: false,
     };
+  },
+  computed: {
+    manageRequest() {
+      return {
+        id: this.requestId,
+        type: this.type,
+        status: this.updateStatus,
+        video: this.video,
+      };
+    },
   },
   methods: {
     hideDialog() {
@@ -107,6 +131,16 @@ export default {
         throw err;
       }
     },
+    setAction({ status, video }) {
+      this.video = video;
+      this.updateStatus = status;
+    },
+    shareVideoDialog() {
+      this.showShareBox = !this.showShareBox;
+    },
+    getVideoRequestsCB() {
+      this.$emit("f");
+    },
   },
   created() {
     this.getVideos();
@@ -115,10 +149,6 @@ export default {
 </script>
 
 <style scoped>
-/* .el-dialog__headerbtn {
-  display: none;
-} */
-
 .header {
   display: flex;
   justify-content: space-between;

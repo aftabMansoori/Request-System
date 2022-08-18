@@ -39,6 +39,18 @@
               <el-button
                 type="primary"
                 size="mini"
+                @click="getRequestId(scope.row._id, 'Approved')"
+                v-if="
+                  scope.row.type === 'video' &&
+                  (scope.row.requestStatus === 'Requested' ||
+                    scope.row.requestStatus === 'Rejected')
+                "
+                ><i class="fa-solid fa-share-nodes"></i
+              ></el-button>
+
+              <el-button
+                type="primary"
+                size="mini"
                 @click="showDialog(scope.row._id, 'Approved')"
                 v-if="
                   scope.row.type === 'leave' &&
@@ -46,17 +58,6 @@
                     scope.row.requestStatus === 'Rejected')
                 "
                 ><i class="fa-solid fa-check"></i
-              ></el-button>
-              <el-button
-                type="primary"
-                size="mini"
-                @click="showDialog(scope.row._id, 'Approved')"
-                v-if="
-                  scope.row.type === 'video' &&
-                  (scope.row.requestStatus === 'Requested' ||
-                    scope.row.requestStatus === 'Rejected')
-                "
-                ><i class="fa-solid fa-share-nodes"></i
               ></el-button>
               <el-button
                 size="mini"
@@ -98,6 +99,10 @@ export default {
     showDialog(id, status) {
       this.$emit("toggleDialog");
       this.$emit("setAction", { id, status });
+    },
+    getRequestId(id) {
+      this.$emit("toggleDialog");
+      this.$emit("getRequestId", id);
     },
   },
 };
