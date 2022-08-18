@@ -25,7 +25,12 @@
       </div>
       <div class="mb-1">
         <h4>Drive Video Link:</h4>
-        <p>{{ manageRequest.video.webViewLink }}</p>
+        <a
+          :href="manageRequest.video.webViewLink"
+          class="text-primary"
+          target="_blank"
+          >{{ manageRequest.video.webViewLink }}</a
+        >
       </div>
     </div>
 
