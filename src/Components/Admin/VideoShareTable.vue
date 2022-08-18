@@ -4,8 +4,7 @@
 
     <el-table-column label="Name">
       <template slot-scope="scope">
-        <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{ scope.row.name }}</span>
+        {{ scope.row.name }}
       </template>
     </el-table-column>
 
@@ -23,9 +22,6 @@
           @click="setStatus(scope.row, 'Approved')"
           >Share</el-button
         >
-        <!-- <el-button size="mini" type="danger" @click="rejectStatus('Rejected')"
-          >Reject</el-button
-        > -->
       </template>
     </el-table-column>
   </el-table>

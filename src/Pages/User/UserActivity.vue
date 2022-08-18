@@ -13,7 +13,7 @@
           @f="getMyRequests"
         />
 
-        <div>
+        <!-- <div>
           <el-button size="mini" type="primary">
             <i class="fa-solid fa-angle-left"></i
           ></el-button>
@@ -21,7 +21,7 @@
           <el-button size="mini" type="primary">
             <i class="fa-solid fa-angle-right"></i
           ></el-button>
-        </div>
+        </div> -->
       </div>
       <div>
         <ActivityTable

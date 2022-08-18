@@ -53,6 +53,17 @@
           </li>
         </template>
       </ul>
+
+      <div class="text-center">
+        <h2>
+          <i class="fa-solid fa-user"></i>
+        </h2>
+        <h3>{{ name }}</h3>
+        <p class="text-secondary mb-2">{{ email }}</p>
+        <el-button plain @click="logout"
+          >Logout <i class="fa-solid fa-right-from-bracket mx"></i
+        ></el-button>
+      </div>
     </el-drawer>
   </nav>
 </template>

@@ -3,7 +3,6 @@
     v-model="value"
     filterable
     placeholder="Select the batch"
-    style="width: 350px"
     @change="selectFilter"
   >
     <template v-if="loading">

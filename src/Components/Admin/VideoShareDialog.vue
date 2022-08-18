@@ -1,22 +1,18 @@
 <template>
-  <el-dialog
-    :show-close="false"
-    title="Share Video"
-    :visible="show"
-    :fullscreen="true"
-  >
+  <el-dialog :show-close="false" :visible="show" :fullscreen="true">
+    <div class="closeBtn">
+      <button @click.prevent="hideDialog">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
     <div class="header">
       <div>
         <h4 class="mb-2">Filter the videos and share it</h4>
 
-        <div style="display: flex; align-items: flex-end">
+        <div class="filters">
           <BaseSelect :filter="batches" @selected="setBatch" @f="getVideos" />
-          <BaseDatePicker class="mx-2" @setDate="setDay" v-if="!!batch" />
+          <BaseDatePicker class="mx-2" @setDate="setDay" @f="getVideos" />
         </div>
-      </div>
-
-      <div>
-        <el-button @click.prevent="hideDialog">Cancel</el-button>
       </div>
     </div>
 
@@ -152,5 +148,33 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
+}
+
+.filters {
+  display: flex;
+  align-items: flex-end;
+}
+
+.closeBtn {
+  margin-top: -3em;
+  text-align: end;
+  margin-bottom: 2em;
+}
+.closeBtn > button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filters > div {
+    margin-bottom: 1em;
+    width: 100%;
+  }
 }
 </style>

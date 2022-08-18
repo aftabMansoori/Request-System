@@ -21,14 +21,15 @@
             </div>
 
             <div class="mt-2 textArea">
-              <el-input
-                type="textarea"
-                :autosize="{ minRows: 6, maxRows: 8 }"
-                placeholder="specify the reason for your request"
-                v-model="reason"
-                style="width: 400px"
-              >
-              </el-input>
+              <div class="text-area-width">
+                <el-input
+                  type="textarea"
+                  :autosize="{ minRows: 6, maxRows: 8 }"
+                  placeholder="specify the reason for your request"
+                  v-model="reason"
+                >
+                </el-input>
+              </div>
 
               <div class="request">
                 <div>
@@ -135,6 +136,10 @@ section {
   /* justify-content: space-evenly; */
 }
 
+.tasty {
+  width: 400px;
+}
+
 .calender {
   width: 50%;
 }
@@ -144,6 +149,10 @@ section {
   flex-direction: column;
   align-items: center;
   width: 50%;
+}
+
+.text-area-width {
+  width: 400px;
 }
 
 @media (max-width: 768px) {
@@ -167,7 +176,27 @@ section {
 
   .request {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .components {
+    flex-direction: column;
+  }
+
+  .calender {
+    width: 100%;
+  }
+
+  .textArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .text-area-width {
+    width: 100%;
   }
 }
 </style>

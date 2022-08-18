@@ -35,6 +35,7 @@
                 type="primary"
                 size="mini"
                 @click="getRequestId(scope.row._id, 'Approved')"
+                class="mt mx"
                 v-if="
                   scope.row.type === 'video' &&
                   (scope.row.requestStatus === 'Requested' ||
@@ -43,6 +44,7 @@
                 ><i class="fa-solid fa-share-nodes"></i
               ></el-button>
               <el-button
+                class="mt mx"
                 size="mini"
                 type="danger"
                 @click="showRejectDialog(scope.row._id, 'Rejected')"
@@ -56,6 +58,7 @@
 
               <el-button
                 type="primary"
+                class="mt mx"
                 size="mini"
                 @click="showDialog(scope.row._id, 'Approved')"
                 v-if="
@@ -67,6 +70,7 @@
               ></el-button>
               <el-button
                 size="mini"
+                class="mt mx"
                 type="danger"
                 @click="showDialog(scope.row._id, 'Rejected')"
                 v-if="

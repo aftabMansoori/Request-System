@@ -158,16 +158,20 @@ p {
 .el-drawer__body {
   padding: 2em 1em;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .el-calendar-table .el-calendar-day {
   height: 60px;
 }
 
+
+
 /* width */
 ::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
   border-radius: 7px;
 }
 
@@ -198,5 +202,18 @@ p {
 
   .el-calendar-table .el-calendar-day {
     height: 60px;
+  }
+
+  .el-date-editor.el-input,
+  .el-date-editor.el-input__inner {
+    width: 100%;
+  }
+
+  .el-dialog {
+    min-width: 90% !important;
+  }
+
+  .el-select {
+    width: 100%;
   }
 }

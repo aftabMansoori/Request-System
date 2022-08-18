@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="Request" :visible="show" width="30%">
+  <el-dialog title="Request" :show-close="false" :visible="show" width="30%">
     <span class="dialog-body">{{ setTitle }}</span>
 
     <span slot="footer" class="dialog-footer">

@@ -148,13 +148,17 @@ form {
     overflow: auto;
   }
 
+  .form-wrapper {
+    height: 100%;
+  }
+
   header {
     text-align: center;
     margin-bottom: 2em;
   }
 
   form {
-    width: 350px;
+    width: 320px;
     padding: 1em 0;
   }
 }
