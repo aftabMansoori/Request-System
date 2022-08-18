@@ -1,5 +1,6 @@
 const config = {
-  baseUrl: "http://localhost:3000",
+  // baseUrl: "http://localhost:3000",
+  baseUrl: "https://request-system-backend-fynd.herokuapp.com/",
   KEY_TOKEN: "token",
   KEY_EMAIL: "email",
   KEY_NAME: "name",
