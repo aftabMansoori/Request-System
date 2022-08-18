@@ -109,6 +109,10 @@ p {
   width: 100%;
 }
 
+.fw-bold {
+  font-weight: 600
+}
+
 .text-secondary {
   color: #909399;
 }
@@ -119,6 +123,14 @@ p {
 
 .text-regular {
   color: #606266;
+}
+
+.text-danger {
+  color: #F56C6C;
+}
+
+.text-success {
+  color: #67C23A;
 }
 
 .text-center {

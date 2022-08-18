@@ -1,13 +1,11 @@
 <template>
   <div>
     <el-date-picker
-      v-model="selectedDate"
       type="date"
       :placeholder="placeholder || 'Pick a day'"
       @change="selectDate"
-      style="width: 100%"
-    >
-    </el-date-picker>
+      v-model="selectedDate"
+    />
   </div>
 </template>
 
@@ -24,7 +22,7 @@ export default {
   },
   methods: {
     selectDate() {
-      this.$emit("setDate", { selectedDate: this.selectedDate });
+      this.$emit("setDate", this.selectedDate);
     },
   },
 };

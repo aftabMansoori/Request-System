@@ -2,8 +2,8 @@
   <el-dialog title="Share Video" :visible="show" width="30%">
     <BaseDatePicker message="Check the details and share the video" />
     <span slot="footer" class="dialog-footer">
-      <el-button @click="hideDialog">Cancel</el-button>
-      <el-button @click="hideDialog" type="primary">Share</el-button>
+      <el-button @click.prevent="hideDialog">Cancel</el-button>
+      <el-button @click.prevent="updateStatus" type="primary">Share</el-button>
     </span>
   </el-dialog>
 </template>
@@ -18,7 +18,7 @@ export default {
   },
   props: {
     show: Boolean,
-    toggleDialog: Function,
+    manageRequest: Object,
   },
   date() {
     return {
@@ -27,7 +27,10 @@ export default {
   },
   methods: {
     hideDialog() {
-      this.toggleDialog();
+      this.$emit("toggleDialog");
+    },
+    updateStatus() {
+      this.$emit("toggleDialog");
     },
   },
 };

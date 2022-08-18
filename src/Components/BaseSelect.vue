@@ -4,9 +4,10 @@
     filterable
     placeholder="Select the batch"
     style="width: 350px"
+    @change="selectFilter"
   >
     <el-option
-      v-for="item in batches"
+      v-for="item in filter"
       :key="item.id"
       :label="item.name"
       :value="item.value"
@@ -18,11 +19,17 @@
 <script>
 export default {
   name: "BaseSelect",
-  props: ["batches"],
+  props: ["filter"],
   data() {
     return {
-      value: this.batches[0].name,
+      value: this.filter[0].name,
     };
+  },
+  methods: {
+    selectFilter() {
+      this.$emit("selected", this.value);
+      this.$emit("f");
+    },
   },
 };
 </script>

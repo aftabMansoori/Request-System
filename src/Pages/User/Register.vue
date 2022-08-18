@@ -7,7 +7,7 @@
           Please enter your details to get regsitered
         </p>
       </div>
-      <form action="">
+      <form @submit.prevent="registerUser">
         <div class="my-1">
           <label class="text-secondary" for="email">Your email</label>
           <el-input
@@ -94,7 +94,9 @@
           />
         </div>
 
-        <el-button type="primary" class="w-100 my-1" round>Sign In</el-button>
+        <el-button type="primary" native-type="submit" class="w-100 my-1" round
+          >Register</el-button
+        >
 
         <p class="text-center">
           Already have an account?
@@ -108,6 +110,10 @@
 </template>
 
 <script>
+import config from "@/config";
+import { register } from "@/services/auth";
+import { errorHandler } from "@/services/helper";
+
 export default {
   name: "AppRegister",
   data() {
@@ -142,14 +148,46 @@ export default {
           value: "ui-ux",
         },
       ],
+      loading: false,
     };
+  },
+  methods: {
+    async registerUser() {
+      try {
+        this.loading = true;
+
+        if (this.user.password !== this.confPassword) {
+          this.$toast.error("Passwords does not match", config.toastConfig);
+
+          this.loading = false;
+
+          return;
+        } else {
+          const userCreated = await register(this.user, "general");
+
+          if (userCreated) {
+            this.$toast.success("Registration successfull", config.toastConfig);
+
+            this.loading = false;
+
+            this.$router.push("/login");
+          } else {
+            throw new Error("There was some issue");
+          }
+        }
+      } catch (err) {
+        this.loading = false;
+        errorHandler(err);
+        throw err;
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
 main {
-  min-height: 90vh;
+  min-height: 110vh;
   width: 100%;
   display: flex;
   align-items: center;

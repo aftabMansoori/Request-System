@@ -18,7 +18,7 @@
           </li>
         </template>
 
-        <template v-if="role === 'user'">
+        <template v-if="role === 'general'">
           <li
             v-for="item in userNavItems"
             :key="item.id"
@@ -36,9 +36,9 @@
       <h2>
         <i class="fa-solid fa-user"></i>
       </h2>
-      <h3>Terry Crews</h3>
-      <p class="text-secondary mb-2">terrycrews@gmail.com</p>
-      <el-button plain
+      <h3>{{ name }}</h3>
+      <p class="text-secondary mb-2">{{ email }}</p>
+      <el-button plain @click="logout"
         >Logout <i class="fa-solid fa-right-from-bracket mx"></i
       ></el-button>
     </div>
@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import config from "@/config";
+
 export default {
   name: "SideNav",
   data() {
@@ -102,6 +104,8 @@ export default {
           icon: "fa-solid fa-door-open",
         },
       ],
+      name: this.$store.state.auth.name,
+      email: this.$store.state.auth.email,
     };
   },
   computed: {
@@ -113,6 +117,12 @@ export default {
   methods: {
     setActiveTab(route) {
       return this.$route.path === route ? "active" : "";
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$toast.success("Logout successful", config.toastConfig);
+
+      this.$router.push("/login");
     },
   },
 };

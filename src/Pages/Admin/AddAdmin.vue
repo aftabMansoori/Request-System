@@ -8,7 +8,7 @@
     </header>
 
     <div class="form-wrapper">
-      <form>
+      <form @submit.prevent="addUser">
         <div class="my-1">
           <label class="text-secondary" for="email">Email</label>
           <el-input
@@ -68,13 +68,18 @@
           <el-switch class="mx-2" v-model="user.canCreate" />
         </div>
 
-        <el-button type="primary" class="w-100 my-2" round>Create</el-button>
+        <el-button type="primary" native-type="submit" class="w-100 my-2" round
+          >Create</el-button
+        >
       </form>
     </div>
   </section>
 </template>
 
 <script>
+import { register } from "@/services/auth";
+import config from "@/config";
+
 export default {
   name: "AddAdmin",
   data() {
@@ -86,7 +91,36 @@ export default {
         phone: "",
         canCreate: false,
       },
+      loading: false,
     };
+  },
+  methods: {
+    async addUser() {
+      this.loading = true;
+
+      try {
+        const adminCreated = await register(this.user, "admin");
+
+        if (adminCreated) {
+          this.$toast.success("Admin created successfull", config.toastConfig);
+
+          this.user = {
+            name: "",
+            email: "",
+            password: "",
+            phone: "",
+            canCreate: false,
+          };
+
+          this.loading = false;
+        } else {
+          throw new Error("There was some issue");
+        }
+      } catch (err) {
+        this.loading = false;
+        throw err;
+      }
+    },
   },
 };
 </script>

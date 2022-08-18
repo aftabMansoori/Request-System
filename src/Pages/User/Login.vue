@@ -38,6 +38,7 @@
             native-type="submit"
             class="w-100 my-1"
             round
+            :disabled="loading"
             >Login</el-button
           >
 
@@ -54,6 +55,8 @@
 </template>
 
 <script>
+import config from "@/config";
+
 export default {
   name: "AppLogin",
   data() {
@@ -61,12 +64,28 @@ export default {
       credentials: {
         email: "",
         password: "",
+        role: "general",
       },
+      loading: false,
     };
   },
   methods: {
     async login() {
-      await this.$store.dispatch("userLogin", this.credentials);
+      this.loading = true;
+
+      try {
+        const user = await this.$store.dispatch("userLogin", this.credentials);
+
+        this.$toast.success(
+          `Hello ${user}, Login Successfull!`,
+          config.toastConfig
+        );
+        this.loading = false;
+
+        this.$router.push("/activity");
+      } catch (err) {
+        this.loading = false;
+      }
     },
   },
 };
