@@ -1,5 +1,7 @@
 <template>
   <el-table :data="requestData" style="width: 100%">
+    <el-table-column type="index" width="50"> </el-table-column>
+
     <el-table-column label="Requested On">
       <template slot-scope="scope">
         <i class="el-icon-time"></i>

@@ -28,6 +28,7 @@
           :data="videosRequested"
           @toggleDialog="toggleDialog"
           @getRequestId="getRequestId"
+          @f="getVideoRequests"
           v-if="showTable"
         />
 

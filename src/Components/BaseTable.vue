@@ -2,9 +2,8 @@
   <div>
     <template v-if="!loading">
       <el-table :data="data">
-        <!-- <template v-if="isAuth === 'admin'">
-          <el-table-column prop="name" label="Name" />
-        </template> -->
+        <el-table-column type="index" width="50"> </el-table-column>
+
         <el-table-column label="Name">
           <template slot-scope="scope">
             {{ scope.row.name }}
@@ -29,10 +28,6 @@
         </el-table-column>
         <el-table-column prop="requestStatus" label="Status" />
 
-        <!-- <el-table-column label="Name">
-        <template slot-scope="scope">
-          {{ scope.row.name }}
-        </template> -->
         <template v-if="isAuth === 'admin'">
           <el-table-column label="Action">
             <template slot-scope="scope">
@@ -46,6 +41,17 @@
                     scope.row.requestStatus === 'Rejected')
                 "
                 ><i class="fa-solid fa-share-nodes"></i
+              ></el-button>
+              <el-button
+                size="mini"
+                type="danger"
+                @click="showRejectDialog(scope.row._id, 'Rejected')"
+                v-if="
+                  scope.row.type === 'video' &&
+                  (scope.row.requestStatus === 'Requested' ||
+                    scope.row.requestStatus === 'Approved')
+                "
+                ><i class="fa-solid fa-xmark"></i
               ></el-button>
 
               <el-button
@@ -64,8 +70,9 @@
                 type="danger"
                 @click="showDialog(scope.row._id, 'Rejected')"
                 v-if="
-                  scope.row.requestStatus === 'Requested' ||
-                  scope.row.requestStatus === 'Approved'
+                  scope.row.type === 'leave' &&
+                  (scope.row.requestStatus === 'Requested' ||
+                    scope.row.requestStatus === 'Approved')
                 "
                 ><i class="fa-solid fa-xmark"></i
               ></el-button>
@@ -77,10 +84,32 @@
     <template v-else>
       <span>loading....</span>
     </template>
+
+    <el-dialog
+      title="Reject Request"
+      :visible="show"
+      width="30%"
+      :show-close="false"
+    >
+      <span>Are your sure you want to reject the request?</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="show = false">Cancel</el-button>
+        <el-button
+          type="danger"
+          @click.prevent="handleReject"
+          :disabled="tableloading"
+          >Reject</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import config from "@/config";
+
+import { manageRequest as manageRequestSv } from "@/services/requests";
+
 export default {
   name: "BaseTable",
   props: {
@@ -88,11 +117,23 @@ export default {
     loading: Boolean,
   },
   data() {
-    return {};
+    return {
+      show: false,
+      leaveId: "",
+      status: "",
+      tableloading: false,
+    };
   },
   computed: {
     isAuth() {
       return localStorage.getItem("role");
+    },
+    managedRequest() {
+      return {
+        id: this.leaveId,
+        type: "video",
+        status: this.status,
+      };
     },
   },
   methods: {
@@ -103,6 +144,33 @@ export default {
     getRequestId(id) {
       this.$emit("toggleDialog");
       this.$emit("getRequestId", id);
+    },
+    showRejectDialog(id, status) {
+      this.show = !this.show;
+      this.leaveId = id;
+      this.status = status;
+    },
+    async handleReject() {
+      try {
+        this.tableloading = true;
+
+        const managedRequest = await manageRequestSv(this.managedRequest);
+
+        if (managedRequest) {
+          this.$toast.success(
+            `Request rejected successfully`,
+            config.toastConfig
+          );
+        }
+
+        this.show = false;
+        this.$emit("f");
+
+        this.tableloading = false;
+      } catch (err) {
+        this.tableloading = false;
+        throw err;
+      }
     },
   },
 };

@@ -34,7 +34,6 @@ export default {
       else return "Are you sure you want to reject the request?";
     },
     setStatus() {
-      console.log(this.manageRequest.status);
       if (this.manageRequest.status === "Approved") return "Approve";
       else return "Reject";
     },
