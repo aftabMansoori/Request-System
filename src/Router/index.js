@@ -1,5 +1,4 @@
 import VueRouter from "vue-router";
-import store from "@/store";
 
 // User Pages
 import Login from "@/Pages/User/Login";
@@ -27,25 +26,25 @@ const AdminRoutes = [
     name: "AdminDashboard",
     path: "/dashboard",
     component: AdminDashboard,
-    meta: ["admin"],
+    meta: { authorize: ["admin"] },
   },
   {
     name: "VideoRequested",
     path: "/video-requested",
     component: VideoRequested,
-    meta: ["admin"],
+    meta: { authorize: ["admin"] },
   },
   {
     name: "LeaveRequested",
     path: "/leave-requested",
     component: LeaveRequested,
-    meta: ["admin"],
+    meta: { authorize: ["admin"] },
   },
   {
     name: "AddAdmin",
     path: "/add-admin",
     component: AddAdmin,
-    meta: ["admin"],
+    meta: { authorize: ["admin"] },
   },
 ];
 
@@ -69,19 +68,19 @@ const UserRoutes = [
     name: "UserActivity",
     path: "/activity",
     component: UserActivity,
-    meta: ["general"],
+    meta: { authorize: [] },
   },
   {
     name: "CreateRequest",
     path: "/create-request",
     component: CreateRequest,
-    meta: ["general"],
+    meta: { authorize: [] },
   },
   {
     name: "RequestedVideos",
     path: "/requested-videos",
     component: RequestedVideos,
-    meta: ["general"],
+    meta: { authorize: [] },
   },
 ];
 
@@ -95,10 +94,20 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const authorize = to.meta;
+  const { authorize } = to.meta;
+  const currentUser = localStorage.getItem("token");
 
-  if (!authorize && !store.getters.isAuthenticated) next({ path: "/login" });
-  else next();
+  if (authorize) {
+    if (!currentUser) {
+      return next({ path: "/login" });
+    }
+
+    if (authorize.length && !authorize.includes("admin")) {
+      return next({ path: "/activity" });
+    }
+  }
+
+  next();
 });
 
 // if (to.matched.some((record) => record.meta.requiresAuth)) {
