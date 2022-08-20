@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <main class="" v-if="!skipRoutes.includes($route.path)">
+    <main class="" v-if="!skipRoutes.includes($route.path) && isAuth">
       <SideNavDesktop class="d-sm-none" />
       <SideNavMobile class="d-lg-none" />
       <div class="view-wrapper">
@@ -20,7 +20,7 @@ export default {
   components: { SideNavDesktop, SideNavMobile },
   data() {
     return {
-      isAuth: !!localStorage.getItem("role"),
+      isAuth: this.$store.getters.isAuthenticated,
       skipRoutes: ["/", "/login", "/register", "/admin/login"],
     };
   },

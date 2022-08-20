@@ -15,6 +15,8 @@ import VideoRequested from "@/Pages/Admin/VideoRequested";
 import LeaveRequested from "@/Pages/Admin/LeaveRequested";
 import AddAdmin from "@/Pages/Admin/AddAdmin";
 
+import PageNotFound from "@/Pages/PageNotFound";
+
 const AdminRoutes = [
   {
     name: "AdminLogin",
@@ -85,7 +87,11 @@ const UserRoutes = [
 
 const router = new VueRouter({
   mode: "history",
-  routes: [...UserRoutes, ...AdminRoutes],
+  routes: [
+    ...UserRoutes,
+    ...AdminRoutes,
+    { path: "*", component: PageNotFound },
+  ],
 });
 
 router.beforeEach((to, from, next) => {

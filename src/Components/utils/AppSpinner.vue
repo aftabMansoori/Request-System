@@ -10,7 +10,7 @@ export default {
 
 <style scoped>
 .spinner {
-  width: 14px;
+  width: 12px;
   height: 12px;
   border-radius: 50%;
   display: inline-block;
