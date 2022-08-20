@@ -68,19 +68,19 @@ const UserRoutes = [
     name: "UserActivity",
     path: "/activity",
     component: UserActivity,
-    meta: { authorize: [] },
+    meta: { authorize: ["general"] },
   },
   {
     name: "CreateRequest",
     path: "/create-request",
     component: CreateRequest,
-    meta: { authorize: [] },
+    meta: { authorize: ["general"] },
   },
   {
     name: "RequestedVideos",
     path: "/requested-videos",
     component: RequestedVideos,
-    meta: { authorize: [] },
+    meta: { authorize: ["general"] },
   },
 ];
 
@@ -96,17 +96,22 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const { authorize } = to.meta;
   const currentUser = localStorage.getItem("token");
-
-  if (authorize) {
-    if (!currentUser) {
+  const userRole = localStorage.getItem("role");
+  if (currentUser && authorize) {
+    if (!authorize.includes(userRole)) {
       return next({ path: "/login" });
     }
-
-    if (authorize.length && !authorize.includes("admin")) {
+  }
+  if (currentUser && !authorize) {
+    if (userRole == "admin") {
+      return next({ path: "/dashboard" });
+    } else {
       return next({ path: "/activity" });
     }
   }
-
+  if (authorize && !currentUser) {
+    return next({ path: "/login" });
+  }
   next();
 });
 

@@ -75,7 +75,8 @@ export default {
         );
         this.loading = false;
 
-        this.$router.push("/dashboard");
+        // this.$router.push("/dashboard");
+        window.location.href = "/dashboard";
       } catch (err) {
         this.loading = false;
       }

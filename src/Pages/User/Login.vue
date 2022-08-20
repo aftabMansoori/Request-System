@@ -81,7 +81,8 @@ export default {
           this.$config.toastConfig
         );
         this.loading = false;
-        this.$router.push("/activity");
+        // this.$router.push("/activity");
+        window.location.href = "/activity";
       } catch (err) {
         this.loading = false;
 
