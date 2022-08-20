@@ -7,7 +7,6 @@ const createRequest = async (request) => {
 
     return response.data;
   } catch (err) {
-    console.log(err);
     errorHandler(err);
   }
 };
@@ -18,7 +17,6 @@ const deleteRequest = async (id) => {
 
     return response.status;
   } catch (err) {
-    console.log(err);
     errorHandler(err);
   }
 };
@@ -36,7 +34,6 @@ const getRequests = async (type, batch, status) => {
 
     return response.data;
   } catch (err) {
-    console.log(err);
     errorHandler(err);
   }
 };
@@ -53,7 +50,6 @@ const manageRequest = async ({ id, type, status, video }) => {
 
     return response.data;
   } catch (err) {
-    console.log(err);
     errorHandler(err);
   }
 };

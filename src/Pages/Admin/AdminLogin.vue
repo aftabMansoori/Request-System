@@ -37,9 +37,13 @@
             type="primary"
             native-type="submit"
             class="w-100 my-1"
+            :disabl="loading"
             round
-            >Login</el-button
-          >
+            >Login
+            <template v-if="loading">
+              <AppSpinner />
+            </template>
+          </el-button>
         </div>
       </form>
     </section>
@@ -47,8 +51,6 @@
 </template>
 
 <script>
-import config from "@/config";
-
 export default {
   name: "AppLogin",
   data() {
@@ -69,7 +71,7 @@ export default {
         const user = await this.$store.dispatch("userLogin", this.credentials);
         this.$toast.success(
           `Hello ${user}, Login Successfull!`,
-          config.toastConfig
+          this.$config.toastConfig
         );
         this.loading = false;
 

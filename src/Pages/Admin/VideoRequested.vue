@@ -23,7 +23,10 @@
         />
       </div>
 
-      <div class="mt-4 table-wrapper">
+      <template v-if="loading">
+        <AppLoader />
+      </template>
+      <div class="mt-4 table-wrapper" v-else>
         <BaseTable
           :data="videosRequested"
           @toggleDialog="toggleDialog"
@@ -149,8 +152,13 @@ export default {
 
         this.loading = false;
       } catch (err) {
-        console.log(err);
-        throw err;
+        this.loading = false;
+
+        this.$toast.error(
+          err.response.data.message ||
+            "There was an error while getting the requests",
+          this.$config.toastConfig
+        );
       }
     },
     getRequestId(id) {

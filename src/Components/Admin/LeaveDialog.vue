@@ -4,15 +4,20 @@
 
     <span slot="footer" class="dialog-footer">
       <el-button @click.prevent="hideDialog">Cancel</el-button>
-      <el-button @click.prevent="updateStatus" :type="setClass">{{
-        setStatus
-      }}</el-button>
+      <el-button
+        @click.prevent="updateStatus"
+        :type="setClass"
+        :disabled="loading"
+        >{{ setStatus }}
+        <template v-if="loading">
+          <AppSpinner />
+        </template>
+      </el-button>
     </span>
   </el-dialog>
 </template>
 
 <script>
-import config from "@/config";
 import { manageRequest as manageRequestSv } from "@/services/requests";
 
 export default {
@@ -55,7 +60,7 @@ export default {
         if (managedRequest) {
           this.$toast.success(
             `Request ${managedRequest.data.requestStatus.toLowerCase()} successfully`,
-            config.toastConfig
+            this.$config.toastConfig
           );
         }
 
@@ -65,8 +70,12 @@ export default {
         this.loading = false;
       } catch (err) {
         this.loading = false;
-        console.log(err);
-        throw err;
+
+        this.$toast.error(
+          err.response.data.message ||
+            "There was an error while getting the requests",
+          this.$config.toastConfig
+        );
       }
     },
   },

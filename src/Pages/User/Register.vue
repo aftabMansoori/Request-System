@@ -94,9 +94,17 @@
           />
         </div>
 
-        <el-button type="primary" native-type="submit" class="w-100 my-1" round
-          >Register</el-button
-        >
+        <el-button
+          type="primary"
+          native-type="submit"
+          class="w-100 my-1"
+          :disabled="loading"
+          round
+          >Register
+          <template v-if="loading">
+            <AppSpinner />
+          </template>
+        </el-button>
 
         <p class="text-center">
           Already have an account?
@@ -110,7 +118,6 @@
 </template>
 
 <script>
-import config from "@/config";
 import { register } from "@/services/auth";
 import { errorHandler } from "@/services/helper";
 
@@ -157,7 +164,10 @@ export default {
         this.loading = true;
 
         if (this.user.password !== this.confPassword) {
-          this.$toast.error("Passwords does not match", config.toastConfig);
+          this.$toast.error(
+            "Passwords does not match",
+            this.$config.toastConfig
+          );
 
           this.loading = false;
 
@@ -166,7 +176,10 @@ export default {
           const userCreated = await register(this.user, "general");
 
           if (userCreated) {
-            this.$toast.success("Registration successfull", config.toastConfig);
+            this.$toast.success(
+              "Registration successfull",
+              this.$config.toastConfig
+            );
 
             this.loading = false;
 

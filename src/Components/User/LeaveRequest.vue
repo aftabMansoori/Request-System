@@ -30,9 +30,11 @@
         type="primary"
         @click.prevent="createLeaveRequest"
         round
-        :disabled="loading"
-        >Create Request</el-button
+        :disabled="loading || warn"
       >
+        Create Request
+        <template v-if="loading"><AppSpinner /></template>
+      </el-button>
     </div>
 
     <div class="selected-dates">
@@ -49,11 +51,15 @@
         </h3>
       </article>
     </div>
+
+    <div class="mt-3 warning-msg" v-if="message.length">
+      <small class="">Warning</small>
+      <p class="mt text-warning">{{ message }}</p>
+    </div>
   </div>
 </template>
 
 <script>
-import config from "@/config";
 import { createRequest } from "@/services/requests";
 
 import BaseDatePicker from "../BaseDatePicker.vue";
@@ -72,14 +78,18 @@ export default {
         type: "leave",
       },
       loading: false,
+      message: "",
+      warn: false,
     };
   },
   methods: {
     setStartDate(date) {
       this.request.startDate = date;
+      this.checkDates();
     },
     setEndDate(date) {
       this.request.endDate = date;
+      this.checkDates();
     },
     async createLeaveRequest() {
       this.loading = true;
@@ -89,7 +99,7 @@ export default {
         if (createdRequest) {
           this.$toast.success(
             "Leave request has been successfully created",
-            config.toastConfig
+            this.$config.toastConfig
           );
 
           this.request.startDate = "";
@@ -101,8 +111,26 @@ export default {
           this.loading = false;
         }
       } catch (err) {
-        console.log(err);
         this.loading = false;
+
+        this.$toast.error(
+          err.response.data.message ||
+            "There was an error while getting the requests",
+          this.$config.toastConfig
+        );
+      }
+    },
+    checkDates() {
+      if (
+        this.request.startDate &&
+        this.request.endDate &&
+        this.request.startDate > this.request.endDate
+      ) {
+        this.message = "Start date should be same or before end date";
+        this.warn = true;
+      } else {
+        this.message = "";
+        this.warn = false;
       }
     },
   },
@@ -127,6 +155,12 @@ export default {
   margin-top: 1em;
   align-items: center;
   margin-top: 2em;
+}
+
+.warning-msg {
+  background: rgba(230, 162, 60, 0.321);
+  padding: 1em 1.5em;
+  border-radius: 7px;
 }
 
 @media (max-width: 768px) {

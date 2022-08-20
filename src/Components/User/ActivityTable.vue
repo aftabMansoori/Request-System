@@ -51,15 +51,16 @@
           size="mini"
           type="danger"
           @click.prevent="handleDelete(scope.row)"
-          ><i class="fa-solid fa-trash"></i
-        ></el-button>
+          :disabled="loading"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </el-button>
       </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script>
-import config from "@/config";
 import { deleteRequest } from "@/services/requests";
 
 export default {
@@ -81,23 +82,24 @@ export default {
       this.tableData = this.requestData;
     },
     async handleDelete(row) {
-      this.loading = true;
       try {
+        this.loading = true;
         const status = await deleteRequest(row._id);
-
         if (status === 204) {
           this.$toast.success(
             "Request deleted successfully",
-            config.toastConfig
+            this.$config.toastConfig
           );
-
           this.$emit("getMyRequests");
         }
-
         this.loading = false;
       } catch (err) {
-        console.log(err);
         this.loading = false;
+        this.$toast.error(
+          err.response.data.message ||
+            "There was an error while getting the requests",
+          this.$config.toastConfig
+        );
       }
     },
     getStatusClass(status) {

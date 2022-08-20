@@ -7,7 +7,11 @@
       >
     </header>
 
-    <div class="wrapper">
+    <template v-if="loading">
+      <AppLoader />
+    </template>
+
+    <div class="wrapper" v-else>
       <div class="no-data-img" v-if="requestVideos.length === 0">
         <img src="@/assets/no-data.svg" alt="" />
         <div class="mt-3 text-center">
@@ -15,7 +19,7 @@
           <p>No files is shared with you yet</p>
         </div>
       </div>
-      <!-- <div class="video"></div>  -->
+
       <div class="mt-4 videos-wrapper" v-else>
         <div class="video-item" v-for="(v, i) in requestVideos" :key="i">
           <a :href="v.videoLink" target="_blank">
@@ -38,8 +42,6 @@
 </template>
 
 <script>
-// import fyndLogo from "@/assets/fyndlogo.png";
-
 import { getSharedFiles } from "@/services/user";
 
 export default {

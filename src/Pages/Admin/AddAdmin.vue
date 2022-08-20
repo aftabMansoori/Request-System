@@ -68,9 +68,17 @@
           <el-switch class="mx-2" v-model="user.canCreate" />
         </div>
 
-        <el-button type="primary" native-type="submit" class="w-100 my-2" round
-          >Create</el-button
-        >
+        <el-button
+          type="primary"
+          native-type="submit"
+          class="w-100 my-2"
+          :disabled="loading"
+          round
+          >Create
+          <template v-if="loading">
+            <AppSpinner />
+          </template>
+        </el-button>
       </form>
     </div>
   </section>
@@ -78,7 +86,6 @@
 
 <script>
 import { addAmin } from "@/services/auth";
-import config from "@/config";
 
 export default {
   name: "AddAdmin",
@@ -102,7 +109,10 @@ export default {
         const adminCreated = await addAmin(this.user, "admin");
 
         if (adminCreated) {
-          this.$toast.success("Admin created successfull", config.toastConfig);
+          this.$toast.success(
+            "Admin created successfull",
+            this.$config.toastConfig
+          );
 
           this.user = {
             name: "",

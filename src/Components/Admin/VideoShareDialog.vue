@@ -16,10 +16,14 @@
       </div>
     </div>
 
+    <template v-if="loading">
+      <AppLoader />
+    </template>
     <VideoShareTable
       @setAction="setAction"
       @toggleDialog="shareVideoDialog"
       :tableData="videoList"
+      v-else
     />
 
     <VideoShareBox
@@ -27,6 +31,7 @@
       @toggleDialog="shareVideoDialog"
       :manageRequest="manageRequest"
       @cb="getVideoRequestsCB"
+      @closeParentDialog="hideDialog"
     />
   </el-dialog>
 </template>

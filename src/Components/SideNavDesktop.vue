@@ -55,8 +55,6 @@
 </template>
 
 <script>
-import config from "@/config";
-
 export default {
   name: "SideNav",
   data() {
@@ -118,7 +116,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
-      this.$toast.success("Logout successful", config.toastConfig);
+      this.$toast.success("Logout successful", this.$config.toastConfig);
 
       this.$router.push("/login");
     },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-if="!loading">
+    <template>
       <el-table :data="data">
         <el-table-column type="index" width="50"> </el-table-column>
 
@@ -85,9 +85,6 @@
         </template>
       </el-table>
     </template>
-    <template v-else>
-      <span>loading....</span>
-    </template>
 
     <el-dialog
       title="Reject Request"
@@ -110,15 +107,12 @@
 </template>
 
 <script>
-import config from "@/config";
-
 import { manageRequest as manageRequestSv } from "@/services/requests";
 
 export default {
   name: "BaseTable",
   props: {
     data: Array,
-    loading: Boolean,
   },
   data() {
     return {
@@ -163,7 +157,7 @@ export default {
         if (managedRequest) {
           this.$toast.success(
             `Request rejected successfully`,
-            config.toastConfig
+            this.$config.toastConfig
           );
         }
 

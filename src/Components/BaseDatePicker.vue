@@ -5,6 +5,7 @@
       :placeholder="placeholder || 'Pick a day'"
       @change="selectDate"
       v-model="selectedDate"
+      :clearable="false"
     />
   </div>
 </template>

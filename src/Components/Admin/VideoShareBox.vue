@@ -36,15 +36,20 @@
 
     <span slot="footer" class="dialog-footer">
       <el-button @click.prevent="toggleDialog">Cancel</el-button>
-      <el-button type="primary" @click.prevent="updateRequest"
-        >Approve</el-button
-      >
+      <el-button
+        type="primary"
+        @click.prevent="updateRequest"
+        :disabled="loading"
+        >Approve
+        <template v-if="loading">
+          <AppSpinner />
+        </template>
+      </el-button>
     </span>
   </el-dialog>
 </template>
 
 <script>
-import config from "@/config";
 import { manageRequest as manageRequestSv } from "@/services/requests";
 
 export default {
@@ -67,14 +72,17 @@ export default {
         this.loading = true;
 
         const updatedRequest = await manageRequestSv(this.manageRequest);
-        console.log(updatedRequest);
 
         if (updatedRequest) {
-          this.$toast.success(`Video shared successfully`, config.toastConfig);
+          this.$toast.success(
+            `Video shared successfully`,
+            this.$config.toastConfig
+          );
         }
 
         this.$emit("toggleDialog");
         this.$emit("cb");
+        this.$emit("closeParentDialog");
 
         this.loading = false;
       } catch (err) {

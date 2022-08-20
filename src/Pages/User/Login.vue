@@ -39,8 +39,12 @@
             class="w-100 my-1"
             round
             :disabled="loading"
-            >Login</el-button
           >
+            Login
+            <template v-if="loading">
+              <AppSpinner />
+            </template>
+          </el-button>
 
           <p class="text-center">
             Don't have account?
@@ -55,8 +59,6 @@
 </template>
 
 <script>
-import config from "@/config";
-
 export default {
   name: "AppLogin",
   data() {
@@ -72,19 +74,22 @@ export default {
   methods: {
     async login() {
       this.loading = true;
-
       try {
         const user = await this.$store.dispatch("userLogin", this.credentials);
-
         this.$toast.success(
           `Hello ${user}, Login Successfull!`,
-          config.toastConfig
+          this.$config.toastConfig
         );
         this.loading = false;
-
         this.$router.push("/activity");
       } catch (err) {
         this.loading = false;
+
+        this.$toast.error(
+          err.response.data.message ||
+            "There was an error while getting the requests",
+          this.$config.toastConfig
+        );
       }
     },
   },

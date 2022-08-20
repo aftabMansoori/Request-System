@@ -23,12 +23,14 @@
         />
       </div>
 
-      <div class="mt-4 table-wrapper">
+      <template v-if="loading">
+        <AppLoader />
+      </template>
+      <div class="mt-4 table-wrapper" v-else>
         <BaseTable
           :data="leavesRequested"
           @toggleDialog="toggleDialog"
           @setAction="setAction"
-          :loading="loading"
           v-if="showTable"
         />
 
@@ -160,8 +162,13 @@ export default {
 
         this.loading = false;
       } catch (err) {
-        console.log(err);
-        throw err;
+        this.loading = false;
+
+        this.$toast.error(
+          err.response.data.message ||
+            "There was an error while getting the requests",
+          this.$config.toastConfig
+        );
       }
     },
     setAction({ id, status }) {

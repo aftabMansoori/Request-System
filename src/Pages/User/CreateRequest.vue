@@ -43,9 +43,14 @@
                   <el-button
                     type="primary"
                     @click.prevent="createVideoRequest"
+                    :disabled="loading"
                     round
-                    >Create Request</el-button
                   >
+                    Create Request
+                    <template v-if="loading">
+                      <AppSpinner />
+                    </template>
+                  </el-button>
                 </div>
               </div>
             </div>
@@ -60,7 +65,6 @@
 </template>
 
 <script>
-import config from "@/config";
 import { createRequest } from "@/services/requests";
 
 import BaseCalendar from "@/Components/BaseCalendar.vue";
@@ -96,7 +100,7 @@ export default {
         if (createdRequest) {
           this.$toast.success(
             "Video request has been successfully created",
-            config.toastConfig
+            this.$config.toastConfig
           );
 
           this.reason = "";
@@ -106,8 +110,13 @@ export default {
 
         this.loading = false;
       } catch (err) {
-        console.log(err);
         this.loading = false;
+
+        this.$toast.error(
+          err.response.data.message ||
+            "There was an error while getting the requests",
+          this.$config.toastConfig
+        );
       }
     },
   },

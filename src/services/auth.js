@@ -35,7 +35,6 @@ const register = async (user, role) => {
 
     return response.data;
   } catch (err) {
-    console.log(err);
     errorHandler(err);
   }
 };
@@ -54,7 +53,6 @@ const addAmin = async (user, role) => {
 
     return response.data;
   } catch (err) {
-    console.log(err);
     errorHandler(err);
   }
 };
