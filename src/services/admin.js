@@ -17,4 +17,24 @@ const getVideosByBatch = async (batch, day) => {
   }
 };
 
-export { getVideosByBatch };
+const getStats = async () => {
+  try {
+    const response = await axiosConfig.get("/admin/stats");
+
+    return response.data;
+  } catch (err) {
+    errorHandler(err);
+  }
+};
+
+const deleteUser = async (id) => {
+  try {
+    const response = await axiosConfig.delete(`/admin/${id}`);
+
+    return response.status;
+  } catch (err) {
+    errorHandler(err);
+  }
+};
+
+export { getVideosByBatch, getStats, deleteUser };

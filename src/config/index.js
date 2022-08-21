@@ -22,6 +22,4 @@ const config = {
   },
 };
 
-// https://request-system-backend-fynd.herokuapp.com/
-
 export default config;

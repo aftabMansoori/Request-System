@@ -44,9 +44,6 @@
 
     <el-table-column label="">
       <template slot-scope="scope">
-        <!-- <el-button size="mini" type="primary" @click="handleEdit(scope.row)"
-          ><i class="fa-solid fa-pen"></i
-        ></el-button> -->
         <el-button
           size="mini"
           type="danger"

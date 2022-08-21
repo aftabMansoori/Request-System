@@ -23,4 +23,19 @@ const getSharedFiles = async () => {
   }
 };
 
-export { getUserRequests, getSharedFiles };
+const getAllUsers = async (batch) => {
+  try {
+    const response = await axiosConfig.get(
+      "/user/all?" +
+        new URLSearchParams({
+          batch,
+        })
+    );
+
+    return response.data;
+  } catch (err) {
+    errorHandler(err);
+  }
+};
+
+export { getUserRequests, getSharedFiles, getAllUsers };

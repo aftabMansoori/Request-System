@@ -29,7 +29,7 @@
         <el-table-column prop="requestStatus" label="Status" />
 
         <template v-if="isAuth === 'admin'">
-          <el-table-column label="Action">
+          <el-table-column label="">
             <template slot-scope="scope">
               <el-button
                 type="primary"
@@ -50,8 +50,7 @@
                 @click="showRejectDialog(scope.row._id, 'Rejected')"
                 v-if="
                   scope.row.type === 'video' &&
-                  (scope.row.requestStatus === 'Requested' ||
-                    scope.row.requestStatus === 'Approved')
+                  scope.row.requestStatus === 'Requested'
                 "
                 ><i class="fa-solid fa-xmark"></i
               ></el-button>
