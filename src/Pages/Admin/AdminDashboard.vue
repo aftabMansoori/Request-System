@@ -49,11 +49,8 @@
       <div class="no-data-img" v-else>
         <img src="@/assets/no-data.svg" alt="" />
         <div class="mt-3 text-center">
-          <h2>No requests</h2>
-          <p>
-            All the requests have been managed by you or no requests exists for
-            now
-          </p>
+          <h2>No Users</h2>
+          <p>All the users registered will be seen here</p>
         </div>
       </div>
     </div>
@@ -227,7 +224,7 @@ section {
   }
 
   .stats > article {
-    width: 100%;
+    width: 20%;
     margin: 1em 0.5em;
   }
 }

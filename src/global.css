@@ -183,7 +183,7 @@ p {
 /* width */
 ::-webkit-scrollbar {
   width: 7px;
-  height: 7px;
+  height: 5px;
   border-radius: 7px;
 }
 
@@ -227,5 +227,12 @@ p {
 
   .el-select {
     width: 100%;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 2px;
+    border-radius: 7px;
   }
 }

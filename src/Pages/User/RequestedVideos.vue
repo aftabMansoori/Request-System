@@ -23,18 +23,18 @@
       <div class="mt-4 videos-wrapper" v-else>
         <div class="video-item" v-for="(v, i) in requestVideos" :key="i">
           <a :href="v.videoLink" target="_blank">
-            <img
+            <!-- <img
               :src="v.thumbnail"
               class="thumbnail"
               alt=""
               v-if="v.thumbnail"
-            />
-            <div class="video" v-else></div>
+            /> -->
+            <div class="video"></div>
+            <h4>
+              {{ v.createdTime | date }}
+            </h4>
+            <h5 class="text-secondary">{{ v.fileName }}</h5>
           </a>
-          <h4>
-            {{ v.createdTime | date }}
-          </h4>
-          <h5 class="text-secondary">{{ v.fileName }}</h5>
         </div>
       </div>
     </div>
