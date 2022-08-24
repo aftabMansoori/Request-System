@@ -12,16 +12,6 @@
           @selected="selectFilter"
           @f="getMyRequests"
         />
-
-        <!-- <div>
-          <el-button size="mini" type="primary">
-            <i class="fa-solid fa-angle-left"></i
-          ></el-button>
-
-          <el-button size="mini" type="primary">
-            <i class="fa-solid fa-angle-right"></i
-          ></el-button>
-        </div> -->
       </div>
       <div>
         <template v-if="loading">
@@ -29,11 +19,12 @@
         </template>
 
         <div v-else>
-          <ActivityTable
-            :requestData="requestData"
-            @getMyRequests="getMyRequests"
-            v-if="requestData.length > 0"
-          />
+          <div class="table-wrapper" v-if="requestData.length > 0">
+            <ActivityTable
+              :requestData="requestData"
+              @getMyRequests="getMyRequests"
+            />
+          </div>
 
           <div class="no-data-img" v-else>
             <img src="@/assets/no-data.svg" alt="" />
@@ -131,6 +122,10 @@ section {
   margin-bottom: 1em;
 }
 
+.table-wrapper {
+  height: 73vh;
+  overflow: auto;
+}
 .no-data-img {
   height: 100%;
   display: flex;

@@ -5,26 +5,42 @@
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
-    <div class="header">
-      <div>
-        <h4 class="mb-2">Filter the videos and share it</h4>
 
-        <div class="filters">
-          <BaseSelect :filter="batches" @selected="setBatch" @f="getVideos" />
-          <BaseDatePicker class="mx-2" @setDate="setDay" @f="getVideos" />
+    <div class="wrapper">
+      <div class="header mb-3">
+        <div>
+          <h4 class="mb-2">Filter the videos and share it</h4>
+
+          <div class="filters">
+            <BaseSelect :filter="batches" @selected="setBatch" @f="getVideos" />
+            <BaseDatePicker class="mx-2" @setDate="setDay" @f="getVideos" />
+          </div>
+        </div>
+      </div>
+
+      <template v-if="loading">
+        <AppLoader />
+      </template>
+      <div class="table-wrapper" v-else>
+        <VideoShareTable
+          @setAction="setAction"
+          @toggleDialog="shareVideoDialog"
+          :tableData="videoList"
+          v-if="videoList.length > 0"
+        />
+
+        <div class="no-data-img" v-else>
+          <img src="@/assets/no-data.svg" alt="" />
+          <div class="mt-3 text-center">
+            <h2>No requests</h2>
+            <p>
+              All the requests have been managed by you or no requests exists
+              for now
+            </p>
+          </div>
         </div>
       </div>
     </div>
-
-    <template v-if="loading">
-      <AppLoader />
-    </template>
-    <VideoShareTable
-      @setAction="setAction"
-      @toggleDialog="shareVideoDialog"
-      :tableData="videoList"
-      v-else
-    />
 
     <VideoShareBox
       :showShareBox="showShareBox"
@@ -150,6 +166,9 @@ export default {
 </script>
 
 <style scoped>
+.wrapper {
+  margin: 0 8em;
+}
 .header {
   display: flex;
   justify-content: space-between;
@@ -171,7 +190,30 @@ export default {
   cursor: pointer;
 }
 
+.table-wrapper {
+  height: 73vh;
+  overflow: auto;
+}
+
+.no-data-img {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.no-data-img > img {
+  width: 400px;
+  height: auto;
+  background-color: #fff;
+  margin-left: -7em;
+}
+
 @media (max-width: 768px) {
+  .wrapper {
+    margin: 0;
+  }
   .header {
     display: flex;
     flex-direction: column;

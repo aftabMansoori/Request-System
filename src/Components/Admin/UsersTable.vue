@@ -1,26 +1,26 @@
 <template>
   <el-table :data="users" style="width: 100%">
-    <el-table-column type="index" width="50"> </el-table-column>
+    <el-table-column type="index" min-width="35"> </el-table-column>
 
-    <el-table-column label="Name">
+    <el-table-column label="Name" min-width="150">
       <template slot-scope="scope">
         {{ scope.row.username || scope.row.name }}
       </template>
     </el-table-column>
 
-    <el-table-column label="Batch">
+    <el-table-column label="Batch" min-width="100">
       <template slot-scope="scope">
         {{ scope.row.batch }}
       </template>
     </el-table-column>
 
-    <el-table-column label="Email">
+    <el-table-column label="Email" min-width="250">
       <template slot-scope="scope">
         {{ scope.row.email }}
       </template>
     </el-table-column>
 
-    <el-table-column label="Phone">
+    <el-table-column label="Phone" min-width="150">
       <template slot-scope="scope"> +91 {{ scope.row.phone }} </template>
     </el-table-column>
 

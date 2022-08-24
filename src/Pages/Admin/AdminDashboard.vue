@@ -28,6 +28,13 @@
             <AppSpinner color="rgb(116, 246, 170)" height="22px" width="22px" />
           </p>
         </article>
+        <article>
+          <h5 class="text-secondary">Number of Batches</h5>
+          <p v-if="stats.users">4</p>
+          <p v-else>
+            <AppSpinner color="rgb(109, 113, 225)" height="22px" width="22px" />
+          </p>
+        </article>
       </div>
     </div>
 
@@ -173,7 +180,7 @@ section {
 }
 
 .stats > article {
-  width: 250px;
+  width: 180px;
   height: 80px;
   margin-inline-end: 2em;
   padding: 1em 2em;
@@ -194,6 +201,12 @@ section {
 
 .stats > article:nth-child(3) p {
   color: rgb(116, 246, 170);
+  font-weight: 600;
+  font-size: 3em;
+}
+
+.stats > article:nth-child(4) p {
+  color: rgb(109, 113, 225);
   font-weight: 600;
   font-size: 3em;
 }
@@ -224,7 +237,7 @@ section {
   }
 
   .stats > article {
-    width: 20%;
+    width: 25%;
     margin: 1em 0.5em;
   }
 }

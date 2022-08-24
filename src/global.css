@@ -182,7 +182,7 @@ p {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 5px;
   height: 5px;
   border-radius: 7px;
 }
@@ -190,11 +190,12 @@ p {
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
+  padding: 5px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #909399;
+  background: #bfc2c9;
   border-radius: 7px;
 }
 

@@ -2,34 +2,56 @@
   <div>
     <template>
       <el-table :data="data">
-        <el-table-column type="index" width="50"> </el-table-column>
+        <el-table-column type="index" min-width="50"> </el-table-column>
 
-        <el-table-column label="Name">
+        <el-table-column label="Name" min-width="120">
           <template slot-scope="scope">
             {{ scope.row.name }}
           </template>
         </el-table-column>
 
-        <el-table-column label="Requested On">
+        <el-table-column label="Batch" min-width="100">
+          <template slot-scope="scope">
+            {{ scope.row.batch }}
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Requested On" min-width="130">
           <template slot-scope="scope">
             {{ scope.row.createdAt | date }}
           </template>
         </el-table-column>
 
-        <el-table-column label="From">
+        <el-table-column label="From" min-width="130">
           <template slot-scope="scope">
             {{ scope.row.startDate | date }}
           </template>
         </el-table-column>
-        <el-table-column label="to">
+        <el-table-column label="to" min-width="130">
           <template slot-scope="scope">
             {{ scope.row.endDate | date }}
           </template>
         </el-table-column>
-        <el-table-column prop="requestStatus" label="Status" />
+        <el-table-column prop="requestStatus" label="Status" min-width="100" />
+
+        <el-table-column label="" min-width="50">
+          <template slot-scope="scope">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="show reason"
+              placement="top"
+            >
+              <i
+                class="fa-solid fa-file text-secondary"
+                @click="toggleReason(scope.row.reason)"
+              ></i>
+            </el-tooltip>
+          </template>
+        </el-table-column>
 
         <template v-if="isAuth === 'admin'">
-          <el-table-column label="">
+          <el-table-column label="" min-width="130">
             <template slot-scope="scope">
               <el-button
                 type="primary"
@@ -47,7 +69,7 @@
                 class="mt mx"
                 size="mini"
                 type="danger"
-                @click="showRejectDialog(scope.row._id, 'Rejected')"
+                @click="videoReject(scope.row._id, 'Rejected')"
                 v-if="
                   scope.row.type === 'video' &&
                   scope.row.requestStatus === 'Requested'
@@ -85,52 +107,36 @@
       </el-table>
     </template>
 
-    <el-dialog
-      title="Reject Request"
-      :visible="show"
-      width="30%"
-      :show-close="false"
-    >
-      <span>Are your sure you want to reject the request?</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="show = false">Cancel</el-button>
-        <el-button
-          type="danger"
-          @click.prevent="handleReject"
-          :disabled="tableloading"
-          >Reject</el-button
-        >
-      </span>
-    </el-dialog>
+    <ReasonBox
+      @toggleReason="toggleReason"
+      :showReason="showReason"
+      :reason="reason"
+    />
   </div>
 </template>
 
 <script>
-import { manageRequest as manageRequestSv } from "@/services/requests";
+import ReasonBox from "./Admin/ReasonBox.vue";
 
 export default {
   name: "BaseTable",
   props: {
     data: Array,
   },
+  components: {
+    ReasonBox,
+  },
   data() {
     return {
       show: false,
-      leaveId: "",
       status: "",
-      tableloading: false,
+      showReason: false,
+      reason: "",
     };
   },
   computed: {
     isAuth() {
       return localStorage.getItem("role");
-    },
-    managedRequest() {
-      return {
-        id: this.leaveId,
-        type: "video",
-        status: this.status,
-      };
     },
   },
   methods: {
@@ -142,32 +148,12 @@ export default {
       this.$emit("toggleDialog");
       this.$emit("getRequestId", id);
     },
-    showRejectDialog(id, status) {
-      this.show = !this.show;
-      this.leaveId = id;
-      this.status = status;
+    videoReject(id, status) {
+      this.$emit("rejectDialog", { id, status });
     },
-    async handleReject() {
-      try {
-        this.tableloading = true;
-
-        const managedRequest = await manageRequestSv(this.managedRequest);
-
-        if (managedRequest) {
-          this.$toast.success(
-            `Request rejected successfully`,
-            this.$config.toastConfig
-          );
-        }
-
-        this.show = false;
-        this.$emit("f");
-
-        this.tableloading = false;
-      } catch (err) {
-        this.tableloading = false;
-        throw err;
-      }
+    toggleReason(reason) {
+      this.reason = reason;
+      this.showReason = !this.showReason;
     },
   },
 };

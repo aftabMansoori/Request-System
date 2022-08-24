@@ -215,8 +215,9 @@ section {
 
 @media (max-width: 768px) {
   section {
-    padding: 1em;
     overflow: auto;
+    width: auto;
+    padding: 1em 0.5em;
   }
 
   header {

@@ -19,7 +19,7 @@
           <li
             key="4"
             :class="setActiveTab('/add-admin')"
-            v-if="$store.state.auth.can_create"
+            v-if="$store.state.auth.can_create !== false"
           >
             <router-link to="/add-admin"
               ><i class="fa-solid fa-user-plus mx"></i> Add Admin
@@ -112,13 +112,14 @@ export default {
   },
   methods: {
     setActiveTab(route) {
+      console.log(this.$store.state.auth.can_create);
       return this.$route.path === route ? "active" : "";
     },
     logout() {
       this.$store.dispatch("logout");
-      this.$toast.success("Logout successful", this.$config.toastConfig);
-
       this.$router.push("/login");
+
+      this.$toast.success("Logout successful", this.$config.toastConfig);
     },
   },
 };

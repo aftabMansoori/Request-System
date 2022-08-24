@@ -30,6 +30,7 @@
         <BaseTable
           :data="videosRequested"
           @toggleDialog="toggleDialog"
+          @rejectDialog="rejectDialog"
           @getRequestId="getRequestId"
           @f="getVideoRequests"
           v-if="showTable"
@@ -53,12 +54,36 @@
         @f="getVideoRequests"
         :requestId="requestId"
       />
+
+      <el-dialog
+        title="Reject h8ubgyu8"
+        :visible="showReject"
+        width="30%"
+        :show-close="false"
+      >
+        <span>Are your sure you want to reject the request?</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="showReject = false">Cancel</el-button>
+          <el-button
+            type="danger"
+            @click.prevent="handleReject"
+            :disabled="loading"
+            >Reject
+            <template v-if="loading">
+              <AppSpinner />
+            </template>
+          </el-button>
+        </span>
+      </el-dialog>
     </div>
   </section>
 </template>
 
 <script>
-import { getRequests } from "@/services/requests";
+import {
+  getRequests,
+  manageRequest as manageRequestSv,
+} from "@/services/requests";
 
 import BaseSelect from "@/Components/BaseSelect.vue";
 import BaseTable from "@/Components/BaseTable.vue";
@@ -118,14 +143,21 @@ export default {
       type: "video",
       loading: false,
       show: false,
+      showReject: false,
       showTable: true,
       selectedRequest: "requested",
       requestId: "",
+      status: "",
     };
   },
   methods: {
     toggleDialog() {
       this.show = !this.show;
+    },
+    rejectDialog({ id, status }) {
+      this.requestId = id;
+      this.status = status;
+      this.showReject = !this.showReject;
     },
     selectBatch(value) {
       this.selectedBatch = value;
@@ -163,6 +195,34 @@ export default {
     },
     getRequestId(id) {
       this.requestId = id;
+    },
+    async handleReject() {
+      try {
+        this.loading = true;
+
+        const requestFor = {
+          id: this.requestId,
+          type: this.type,
+          status: this.status,
+        };
+
+        const managedRequest = await manageRequestSv(requestFor);
+
+        if (managedRequest) {
+          this.$toast.success(
+            `Request rejected successfully`,
+            this.$config.toastConfig
+          );
+        }
+
+        this.getVideoRequests();
+        this.showReject = false;
+
+        this.loading = false;
+      } catch (err) {
+        this.loading = false;
+        throw err;
+      }
     },
   },
   created() {
@@ -204,7 +264,8 @@ section {
 
 @media (max-width: 768px) {
   section {
-    padding: 1em;
+    width: auto;
+    padding: 1em 0.5em;
     overflow: auto;
   }
 
