@@ -404,8 +404,6 @@ export default {
                     this.loading = true;
 
                     delete this.user.confPassword;
-                    delete this.user.confPassword;
-                    console.log(this.user);
 
                     const userCreated = await register(this.user, "general");
 
