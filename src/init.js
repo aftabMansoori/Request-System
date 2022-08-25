@@ -6,6 +6,7 @@ import config from "./config";
 import Vue from "vue";
 
 import dateFilter from "@/filter/date";
+import toCapitalised from "@/filter/capitalised";
 
 import { AppLoader, AppSpinner } from "@/Components/utils";
 
@@ -14,18 +15,6 @@ Vue.component("AppLoader", AppLoader);
 Vue.component("AppSpinner", AppSpinner);
 
 Vue.prototype.$config = config;
-
-const toCapitalised = (word) => {
-  if (!word) return;
-
-  try {
-    const capitlisedWord = word[0].toUpperCase() + word.slice(1);
-
-    return capitlisedWord;
-  } catch (err) {
-    console.log(err.message);
-  }
-};
 
 Vue.filter("date", dateFilter);
 Vue.filter("toCapitalised", toCapitalised);
