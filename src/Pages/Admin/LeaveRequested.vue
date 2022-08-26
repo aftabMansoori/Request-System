@@ -29,7 +29,7 @@
       <div class="mt-4 table-wrapper" v-else>
         <BaseTable
           :data="leavesRequested"
-          @toggleDialog="toggleDialog"
+          @toggleDialog="handleDialog"
           @setAction="setAction"
           v-if="showTable"
         />
@@ -46,26 +46,33 @@
         </div>
       </div>
 
-      <LeaveDialog
-        :show="show"
-        @toggleDialog="toggleDialog"
-        @f="getLeaveRequests"
-        :manageRequest="manageRequest"
+      <BaseDialog
+        @action="manageStatus"
+        @handleDialog="handleDialog"
+        :dialogVisible="showDialog"
+        :loading="loading"
+        :actionText="actionText"
+        :message="`Are you sure you want to ${status} the request?`"
+        :title="title"
+        :buttonColor="buttonColour"
       />
     </div>
   </section>
 </template>
 
 <script>
-import { getRequests } from "@/services/requests";
+import {
+  getRequests,
+  manageRequest as manageRequestSv,
+} from "@/services/requests";
 
 import BaseSelect from "@/Components/BaseSelect.vue";
 import BaseTable from "@/Components/BaseTable.vue";
-import LeaveDialog from "@/Components/Admin/LeaveDialog.vue";
+import BaseDialog from "@/Components/BaseDialog.vue";
 
 export default {
   name: "LeaveRequested",
-  components: { BaseSelect, BaseTable, LeaveDialog },
+  components: { BaseSelect, BaseTable, BaseDialog },
 
   data() {
     return {
@@ -113,15 +120,15 @@ export default {
           value: "rejected",
         },
       ],
-      leavesRequested: [],
-      show: false,
       selectedBatch: "all",
       selectedRequest: "requested",
       type: "leave",
-      loading: false,
-      leaveId: "",
       updateStatus: "",
+      leaveId: null,
+      showDialog: false,
+      loading: false,
       showTable: true,
+      leavesRequested: [],
     };
   },
   computed: {
@@ -132,10 +139,24 @@ export default {
         status: this.updateStatus,
       };
     },
+    status() {
+      return this.updateStatus === "Approved" ? "approve" : "reject";
+    },
+    title() {
+      return this.updateStatus === "Approved"
+        ? "Approve Request"
+        : "Reject Request";
+    },
+    actionText() {
+      return this.updateStatus === "Approved" ? "Approve" : "Reject";
+    },
+    buttonColour() {
+      return this.updateStatus === "Approved" ? "success" : "danger";
+    },
   },
   methods: {
-    toggleDialog() {
-      this.show = !this.show;
+    handleDialog() {
+      this.showDialog = !this.showDialog;
     },
     selectBatch(value) {
       this.selectedBatch = value;
@@ -159,6 +180,33 @@ export default {
         } else {
           this.showTable = false;
         }
+
+        this.loading = false;
+      } catch (err) {
+        this.loading = false;
+
+        this.$toast.error(
+          err.response.data.message ||
+            "There was an error while getting the requests",
+          this.$config.toastConfig
+        );
+      }
+    },
+    async manageStatus() {
+      try {
+        this.loading = true;
+
+        const managedRequest = await manageRequestSv(this.manageRequest);
+
+        if (managedRequest) {
+          this.$toast.success(
+            `Request ${managedRequest.data.requestStatus.toLowerCase()} successfully`,
+            this.$config.toastConfig
+          );
+        }
+
+        this.handleDialog();
+        this.getLeaveRequests();
 
         this.loading = false;
       } catch (err) {

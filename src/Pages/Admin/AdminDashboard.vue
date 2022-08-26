@@ -48,7 +48,7 @@
     <div v-else>
       <UsersTable
         :users="users"
-        @f="getAllUsers"
+        @getAllUsers="getAllUsers"
         @getStats="getStats"
         v-if="showTable"
       />

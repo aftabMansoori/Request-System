@@ -32,7 +32,23 @@
             {{ scope.row.endDate | date }}
           </template>
         </el-table-column>
-        <el-table-column prop="requestStatus" label="Status" min-width="100" />
+
+        <el-table-column label="Status" min-width="100">
+          <template slot-scope="scope">
+            <span
+              class="fw-bold"
+              :class="
+                scope.row.requestStatus === 'Approved'
+                  ? 'text-success'
+                  : scope.row.requestStatus === 'Rejected'
+                  ? 'text-danger'
+                  : 'text-secondary'
+              "
+            >
+              {{ scope.row.requestStatus }}
+            </span>
+          </template>
+        </el-table-column>
 
         <el-table-column label="" min-width="50">
           <template slot-scope="scope">
@@ -149,7 +165,8 @@ export default {
       this.$emit("getRequestId", id);
     },
     videoReject(id, status) {
-      this.$emit("rejectDialog", { id, status });
+      this.$emit("rejectDialog");
+      this.$emit("setAction", { id, status });
     },
     toggleReason(reason) {
       this.reason = reason;
@@ -159,4 +176,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>

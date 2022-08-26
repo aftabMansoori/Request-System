@@ -28,11 +28,12 @@
       </template>
       <div class="mt-4 table-wrapper" v-else>
         <BaseTable
-          :data="videosRequested"
           @toggleDialog="toggleDialog"
+          @setAction="setAction"
           @rejectDialog="rejectDialog"
           @getRequestId="getRequestId"
           @f="getVideoRequests"
+          :data="videosRequested"
           v-if="showTable"
         />
 
@@ -55,26 +56,16 @@
         :requestId="requestId"
       />
 
-      <el-dialog
-        title="Reject h8ubgyu8"
-        :visible="showReject"
-        width="30%"
-        :show-close="false"
-      >
-        <span>Are your sure you want to reject the request?</span>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="showReject = false">Cancel</el-button>
-          <el-button
-            type="danger"
-            @click.prevent="handleReject"
-            :disabled="loading"
-            >Reject
-            <template v-if="loading">
-              <AppSpinner />
-            </template>
-          </el-button>
-        </span>
-      </el-dialog>
+      <BaseDialog
+        @action="handleReject"
+        @handleDialog="rejectDialog"
+        :dialogVisible="showReject"
+        :loading="loading"
+        actionText="Reject"
+        message="Are you sure you want to reject the request?"
+        title="Reject Request"
+        buttonColor="danger"
+      />
     </div>
   </section>
 </template>
@@ -88,10 +79,11 @@ import {
 import BaseSelect from "@/Components/BaseSelect.vue";
 import BaseTable from "@/Components/BaseTable.vue";
 import VideoShareDialog from "@/Components/Admin/VideoShareDialog.vue";
+import BaseDialog from "@/Components/BaseDialog.vue";
 
 export default {
   name: "VideoRequested",
-  components: { BaseSelect, BaseTable, VideoShareDialog },
+  components: { BaseSelect, BaseTable, VideoShareDialog, BaseDialog },
   data() {
     return {
       batches: [
@@ -141,22 +133,20 @@ export default {
       videosRequested: [],
       selectedBatch: "all",
       type: "video",
+      selectedRequest: "requested",
+      requestId: null,
+      status: "",
       loading: false,
       show: false,
       showReject: false,
       showTable: true,
-      selectedRequest: "requested",
-      requestId: "",
-      status: "",
     };
   },
   methods: {
     toggleDialog() {
       this.show = !this.show;
     },
-    rejectDialog({ id, status }) {
-      this.requestId = id;
-      this.status = status;
+    rejectDialog() {
       this.showReject = !this.showReject;
     },
     selectBatch(value) {
@@ -223,6 +213,10 @@ export default {
         this.loading = false;
         throw err;
       }
+    },
+    setAction({ id, status }) {
+      this.requestId = id;
+      this.status = status;
     },
   },
   created() {
