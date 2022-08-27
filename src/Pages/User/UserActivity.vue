@@ -115,7 +115,6 @@ export default {
 
         if (results.length > 0) {
           this.requestData = results;
-          this.requestData.reverse();
           this.next = next;
           this.prev = previous;
         }
