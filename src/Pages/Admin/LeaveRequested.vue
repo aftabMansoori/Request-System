@@ -9,18 +9,40 @@
 
     <div>
       <div class="select-wrapper mt-4">
-        <BaseSelect
-          :filter="batches"
-          @selected="selectBatch"
-          @f="getLeaveRequests"
-        />
+        <div>
+          <BaseSelect
+            :filter="batches"
+            @selected="selectBatch"
+            @f="getLeaveRequests"
+          />
 
-        <BaseSelect
-          :filter="requests"
-          @selected="selectRequest"
-          @f="getLeaveRequests"
-          class="mx-1"
-        />
+          <BaseSelect
+            :filter="requests"
+            @selected="selectRequest"
+            @f="getLeaveRequests"
+            class="mx-1"
+          />
+        </div>
+
+        <div class="d-sm-none" style="margin-right: 3em">
+          <el-row>
+            <el-button
+              type="primary"
+              size="small"
+              @click="prevPage"
+              :disabled="!prev"
+              round
+              ><i class="fa-solid fa-arrow-left"></i></el-button
+            ><el-button
+              type="primary"
+              size="small"
+              @click="nextPage"
+              :disabled="!next"
+              round
+              ><i class="fa-solid fa-arrow-right"></i
+            ></el-button>
+          </el-row>
+        </div>
       </div>
 
       <template v-if="loading">
@@ -129,6 +151,10 @@ export default {
       loading: false,
       showTable: true,
       leavesRequested: [],
+      page: 1,
+      limit: 10,
+      prev: 0,
+      next: 0,
     };
   },
   computed: {
@@ -168,14 +194,17 @@ export default {
       try {
         this.loading = true;
 
-        const leaveRequests = await getRequests(
+        const { data } = await getRequests(
           this.type,
           this.selectedBatch,
-          this.selectedRequest
+          this.selectedRequest,
+          this.page,
+          this.limit
         );
-
-        if (leaveRequests.data.requests.length !== 0) {
-          this.leavesRequested = leaveRequests.data.requests;
+        if (data.count !== 0) {
+          this.leavesRequested = data.results;
+          this.next = data.next;
+          this.prev = data.previous;
           this.showTable = true;
         } else {
           this.showTable = false;
@@ -223,6 +252,14 @@ export default {
       this.leaveId = id;
       this.updateStatus = status;
     },
+    nextPage() {
+      this.page = this.next;
+      this.getMyRequests();
+    },
+    prevPage() {
+      this.page = this.prev;
+      this.getMyRequests();
+    },
   },
   created() {
     this.getLeaveRequests();
@@ -237,8 +274,9 @@ section {
 }
 
 .select-wrapper {
+  width: 100%;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
 }
 
 .table-wrapper {

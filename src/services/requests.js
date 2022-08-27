@@ -21,7 +21,7 @@ const deleteRequest = async (id) => {
   }
 };
 
-const getRequests = async (type, batch, status) => {
+const getRequests = async (type, batch, status, page, limit) => {
   try {
     const response = await axiosConfig.get(
       "/request?" +
@@ -29,6 +29,8 @@ const getRequests = async (type, batch, status) => {
           type,
           batch,
           status,
+          page,
+          limit,
         })
     );
 
