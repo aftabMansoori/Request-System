@@ -39,7 +39,7 @@
         </template>
 
         <div v-else>
-          <div class="table-wrapper" v-if="requestData.length > 0">
+          <div class="mt-2 table-wrapper" v-if="requestData.length > 0">
             <ActivityTable
               :requestData="requestData"
               @getMyRequests="getMyRequests"
@@ -161,7 +161,7 @@ section {
 }
 
 .table-wrapper {
-  height: 76vh;
+  height: 75vh;
   overflow: auto;
 }
 .no-data-img {

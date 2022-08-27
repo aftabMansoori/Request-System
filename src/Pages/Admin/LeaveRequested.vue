@@ -20,7 +20,7 @@
             :filter="requests"
             @selected="selectRequest"
             @f="getLeaveRequests"
-            class="mx-1"
+            class="select"
           />
         </div>
 
@@ -45,10 +45,30 @@
         </div>
       </div>
 
+      <div class="text-center d-lg-none my-2">
+        <el-row>
+          <el-button
+            type="primary"
+            size="small"
+            @click="prevPage"
+            :disabled="!prev"
+            round
+            ><i class="fa-solid fa-arrow-left"></i></el-button
+          ><el-button
+            type="primary"
+            size="small"
+            @click="nextPage"
+            :disabled="!next"
+            round
+            ><i class="fa-solid fa-arrow-right"></i
+          ></el-button>
+        </el-row>
+      </div>
+
       <template v-if="loading">
         <AppLoader />
       </template>
-      <div class="mt-4 table-wrapper" v-else>
+      <div class="mt-2 table-wrapper" v-else>
         <BaseTable
           :data="leavesRequested"
           @toggleDialog="handleDialog"
@@ -254,11 +274,11 @@ export default {
     },
     nextPage() {
       this.page = this.next;
-      this.getMyRequests();
+      this.getLeaveRequests();
     },
     prevPage() {
       this.page = this.prev;
-      this.getMyRequests();
+      this.getLeaveRequests();
     },
   },
   created() {
@@ -279,8 +299,12 @@ section {
   justify-content: space-between;
 }
 
+.select {
+  margin: 0 0.5em;
+}
+
 .table-wrapper {
-  height: 70vh;
+  height: 75vh;
   overflow: auto;
 }
 
@@ -309,6 +333,10 @@ section {
   header {
     text-align: center;
     margin-bottom: 2em;
+  }
+
+  .select {
+    margin: 0.5em 0;
   }
 }
 </style>
