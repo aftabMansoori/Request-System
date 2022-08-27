@@ -27,6 +27,16 @@ const getStats = async () => {
   }
 };
 
+const getAllAdmin = async () => {
+  try {
+    const response = await axiosConfig.get("/admin/all-admins");
+
+    return response.data;
+  } catch (err) {
+    errorHandler(err);
+  }
+};
+
 const deleteUser = async (id) => {
   try {
     const response = await axiosConfig.delete(`/admin/${id}`);
@@ -37,4 +47,14 @@ const deleteUser = async (id) => {
   }
 };
 
-export { getVideosByBatch, getStats, deleteUser };
+const deleteAdmim = async (id) => {
+  try {
+    const response = await axiosConfig.delete(`/admin/${id}/admin`);
+
+    return response.status;
+  } catch (err) {
+    errorHandler(err);
+  }
+};
+
+export { getVideosByBatch, getStats, getAllAdmin, deleteUser, deleteAdmim };
