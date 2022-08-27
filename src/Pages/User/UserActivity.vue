@@ -33,6 +33,26 @@
           </el-row>
         </div>
       </div>
+      <div class="d-lg-none text-center my-2">
+        <el-row>
+          <el-button
+            type="primary"
+            size="small"
+            @click="prevPage"
+            :disabled="!prev"
+            round
+            ><i class="fa-solid fa-arrow-left"></i></el-button
+          ><el-button
+            type="primary"
+            size="small"
+            @click="nextPage"
+            :disabled="!next"
+            round
+            ><i class="fa-solid fa-arrow-right"></i
+          ></el-button>
+        </el-row>
+      </div>
+
       <div>
         <template v-if="loading">
           <AppLoader />

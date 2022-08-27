@@ -23,12 +23,6 @@
       <div class="mt-4 videos-wrapper" v-else>
         <div class="video-item" v-for="(v, i) in requestVideos" :key="i">
           <a :href="v.videoLink" target="_blank">
-            <!-- <img
-              :src="v.thumbnail"
-              class="thumbnail"
-              alt=""
-              v-if="v.thumbnail"
-            /> -->
             <div class="video"></div>
             <h4>
               {{ v.createdTime | date }}
