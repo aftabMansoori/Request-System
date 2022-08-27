@@ -1,10 +1,15 @@
 import axiosConfig from "@/axiosConfig/axiosConfig";
 import { errorHandler } from "./helper";
 
-const getUserRequests = async (type) => {
+const getUserRequests = async (type, page, limit) => {
   try {
     const response = await axiosConfig.get(
-      `/request/user-requests?type=${type}`
+      `/request/user-requests?` +
+        new URLSearchParams({
+          type,
+          page,
+          limit,
+        })
     );
 
     return response.data;
